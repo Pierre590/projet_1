@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Départ/arrivée{% endblock %}
+
+{% block body %}
+<div class="container">
+    <table class="table table-hover mt-4 text-center">
+      <thead>
+
+      </thead>
+      <tbody>
+        <tr class="table-dark">
+          <th scope="row">Horaire</th>
+          <td>Destination</td>
+          <td>Pseudo</td>
+          <td>Place disponible</td>
+          <td>Observations</td>
+        </tr>
+        <tr class="table-dark ">
+          <th scope="row">16h30</th>
+          <td>Nancy</td>
+          <td>Lui</td>
+          <td> <a href=""data-toggle="modal" data-target="#resa">
+              3 places</a>
+
+          </td>
+          <td>A l'heure</td>
+        </tr>
+        <tr class="table-dark">
+          <th scope="row">17h00</th>
+          <td>Ludres</td>
+          <td>Moi</td>
+          <td>2 places</td>
+          <td>A l'heure</td>
+        </tr>
+        <tr class="table-dark">
+          <th scope="row">17h00</th>
+          <td>Paris</td>
+          <td>Elle</td>
+          <td>4 places</td>
+          <td>Retard 30 min</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="test">
+        <button type="button" class="btn btn-outline-danger mt-3">
+            Annuler ma <br>réservation
+        </button>
+    </div>
+    <div class="modal fade" id="resa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resa">Annulation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                Vous êtes sur le point d'annuler une réservation
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Valider</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
