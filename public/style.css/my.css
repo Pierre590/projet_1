@@ -9,14 +9,18 @@ body {
 footer {
     width:100%;
     margin-top: auto !important;
+
 }
 .card-footer  {
     background-color:rgb(36, 38, 37);
 }
 .contact {
-
+    margin-bottom: 0;
 
 }
-.test{
+.annuler {
     float: right;
+}
+.creer {
+    float: left;
 }
