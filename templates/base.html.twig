@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="description:" content="site de micro co-voiturage pour les entreprises">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bienvenue{% endblock %}</title>
         <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
         <link rel="stylesheet" href="/style.css/my.css">
         {% block stylesheets %}{% endblock %}
@@ -28,8 +28,8 @@
             </div>
         </nav>
         {% block body %}{% endblock %}
-        <div class="contact">
-            <div class="jumbotron bla">
+        <footer>
+            <div class="jumbotron m-0">
                 <div class="row text-center">
                     <div class="col-md-3">
                         6 Route de l'Aviation, <br>
@@ -48,8 +48,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <footer>
             <div class="card-footer text-light text-center ">
                 Copyright © 2020 Développé par Piro.
             </div>

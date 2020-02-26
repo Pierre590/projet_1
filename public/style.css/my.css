@@ -2,25 +2,22 @@ body {
     background-image: url('/images/background.jpg');
     background-attachment: fixed;
     background-size: cover;
-    display: flex;
-    min-height: 100vh;
     flex-direction: column;
+    min-height: 100vh;
+    display: flex;
 }
 footer {
-    width:100%;
-    margin-top: auto !important;
+    margin-top: auto;
+    bottom: 0;
+}
 
-}
-.card-footer  {
-    background-color:rgb(36, 38, 37);
-}
-.bla {
-    margin: auto;
 
-}
 .annuler {
     float: right;
 }
 .creer {
     float: left;
+}
+.card-footer  {
+    background-color:rgb(36, 38, 37);
 }
