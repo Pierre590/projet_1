@@ -58,17 +58,39 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <ul>
-                    <li>Horaire:</li>
-                    <li>Destination:</li>
-                    <li>Pseudo:</li>
-                    <li>Place disponible dans votre véhicule:</li>
-                    <li>Observations:</li>
-                </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Valider</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                    <div class="row">
+                        <div class="col-md-12 mt-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form class="form" action="" method="post">
+                                        <div class="form-group">
+                                            <label for="criteria1">Horaire :</label>
+                                            <input type="number" name="criteria1" class="form-control" id="test1" placeholder="Indiquer l'heure du départ" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="criteria2">Destination : </label>
+                                            <input type="text" name="criteria2" class="form-control" id="test2" placeholder="Indiquer le lieu d'arrivée" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="criteria3">Pseudo :</label>
+                                            <input type="text" name="criteria3" class="form-control" id="test3" placeholder="Enter votre nom, pseudo" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="criteria4">Place disponible : </label>
+                                            <input type="number" name="criteria4" class="form-control" id="test4" placeholder="Indiquer les places disponibles" step="1" min="0" max="4"required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="criteria4">Observations : </label>
+                                            <input type="text" name="criteria4" class="form-control" id="test5" placeholder="Indiquer un éventuel retard" required/>
+                                        </div>
+                                        <input type="hidden" name="token" value=""/>
+                                        <input class="btn btn-secondary" type="submit" name="submit" value="Valider"/>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
