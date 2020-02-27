@@ -34,22 +34,22 @@ class Ride
     private $observations;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\users", inversedBy="rides")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="rides")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\company", inversedBy="rides")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="rides")
      */
     private $company;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\city", inversedBy="rides")
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="rides")
      */
     private $departure;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\city", inversedBy="rides")
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="rides")
      */
     private $arrival;
 
@@ -104,48 +104,48 @@ class Ride
         return $this;
     }
 
-    public function getUser(): ?users
+    public function getUser(): ?Users
     {
         return $this->user;
     }
 
-    public function setUser(?users $user): self
+    public function setUser(?Users $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getCompany(): ?company
+    public function getCompany(): ?Company
     {
         return $this->company;
     }
 
-    public function setCompany(?company $company): self
+    public function setCompany(?Company $company): self
     {
         $this->company = $company;
 
         return $this;
     }
 
-    public function getDeparture(): ?city
+    public function getDeparture(): ?City
     {
         return $this->departure;
     }
 
-    public function setDeparture(?city $departure): self
+    public function setDeparture(?City $departure): self
     {
         $this->departure = $departure;
 
         return $this;
     }
 
-    public function getArrival(): ?city
+    public function getArrival(): ?City
     {
         return $this->arrival;
     }
 
-    public function setArrival(?city $arrival): self
+    public function setArrival(?City $arrival): self
     {
         $this->arrival = $arrival;
 

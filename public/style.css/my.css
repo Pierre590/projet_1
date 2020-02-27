@@ -11,7 +11,6 @@ footer {
     bottom: 0;
 }
 
-
 .annuler {
     float: right;
 }
@@ -20,4 +19,8 @@ footer {
 }
 .card-footer  {
     background-color:rgb(36, 38, 37);
+}
+
+.g-signin2 {
+    box-shadow: none;
 }

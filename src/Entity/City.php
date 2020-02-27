@@ -24,7 +24,7 @@ class City
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\zip", inversedBy="cities")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Zip", inversedBy="cities")
      */
     private $zip;
 
@@ -55,12 +55,12 @@ class City
         return $this;
     }
 
-    public function getZip(): ?zip
+    public function getZip(): ?Zip
     {
         return $this->zip;
     }
 
-    public function setZip(?zip $zip): self
+    public function setZip(?Zip $zip): self
     {
         $this->zip = $zip;
 

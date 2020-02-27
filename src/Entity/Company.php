@@ -34,7 +34,7 @@ class Company
     private $phone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\adress", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Adress", inversedBy="companies")
      */
     private $adress;
 
@@ -95,12 +95,12 @@ class Company
         return $this;
     }
 
-    public function getAdress(): ?adress
+    public function getAdress(): ?Adress
     {
         return $this->adress;
     }
 
-    public function setAdress(?adress $adress): self
+    public function setAdress(?Adress $adress): self
     {
         $this->adress = $adress;
 

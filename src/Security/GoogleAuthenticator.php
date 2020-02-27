@@ -2,7 +2,7 @@
 
 namespace App\Security;
 
-use App\Entity\User;
+use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,15 +57,13 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
         ]);
 
         try {
-
             $payload = $client->verifyIdToken($idToken);
-
         } catch (\Exception $e) {
             return;
         }
 
         $user = $this->em
-        ->getRepository(User::class)
+        ->getRepository(Users::class)
         ->findOneBy([
             'googleId' => $payload['sub']
         ]);
@@ -74,12 +72,12 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
         // si l'utilisateur n'existe pas, on essai de le récupérer par l'email
         if (!$user) {
             $user = $this->em
-            ->getRepository(User::class)
+            ->getRepository(Users::class)
             ->findOneBy([
                 'email' => $payload['email']
             ]);
             if (!$user) {
-                $user = new User;
+                $user = new Users;
                 $user->setEmail($payload ['email']);
             }
         }

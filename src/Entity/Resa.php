@@ -17,12 +17,12 @@ class Resa
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\users", inversedBy="resas")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="resas")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ride", inversedBy="resas")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ride", inversedBy="resas")
      */
     private $ride;
 
@@ -31,24 +31,24 @@ class Resa
         return $this->id;
     }
 
-    public function getUser(): ?users
+    public function getUser(): ?Users
     {
         return $this->user;
     }
 
-    public function setUser(?users $user): self
+    public function setUser(?Users $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getRide(): ?ride
+    public function getRide(): ?Ride
     {
         return $this->ride;
     }
 
-    public function setRide(?ride $ride): self
+    public function setRide(?Ride $ride): self
     {
         $this->ride = $ride;
 

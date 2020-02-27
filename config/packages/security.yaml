@@ -1,13 +1,22 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: null }
+        users:
+            entity:
+                # the class of the entity that represents users
+                class: 'App\Entity\Users'
+                # the property to query by - e.g. username, email, etc
+                property: 'googleId'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: lazy
+            anonymous: ~
+            guard:
+                authenticators:
+                    - App\Security\GoogleAuthenticator
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
