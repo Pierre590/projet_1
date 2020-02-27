@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="description:" content="site de micro co-voiturage pour les entreprises">
+        <meta name="google-signin-client_id" content="699258154622-t9og9u5681snjbtjktobs02lmq4p19ds.apps.googleusercontent.com">
         <title>{% block title %}Bienvenue{% endblock %}</title>
         <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
         <link rel="stylesheet" href="/style.css/my.css">
@@ -22,9 +23,8 @@
                         <a class="nav-link" href="/panneau">Panneau <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
-                <div class="nav-item active ml-auto">
-                    <a href="#">Connexion</a>
-                </div>
+                <div class="g-signin2 ml-auto mr-3"  data-onsuccess="onSignIn"></div>
+                <a href="#" onclick="signOut();">Déconnexion</a>
             </div>
         </nav>
         {% block body %}{% endblock %}
@@ -56,5 +56,46 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script>
+            function getCookie(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            const googleId = getCookie('GOOGLE_ID')
+
+            function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                var id_token = googleUser.getAuthResponse().id_token;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{{ path('app_login_google') }}');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    //window.location.href = '{{ path ('home') }}'//
+
+                };
+                xhr.send('id_token=' + id_token);
+                console.log('id_token');
+            }
+
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                  console.log('User signed out.');
+                });
+            }
+        </script>
     </body>
 </html>
