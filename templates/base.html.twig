@@ -24,7 +24,7 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    {% if app.user %}
+                    {% if app.user %}<!--si connecté apparition du prenom et deco-->
                         <li class="nav-item active ml-auto">
                             <div class="nav-link">{{ app.user.firstname }}</div>
                         </li>

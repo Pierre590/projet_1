@@ -79,8 +79,9 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
                 $user = new Users;
                 $user
                     ->setGoogleId($payload['sub'])
-                    ->setEmail($payload['email'])
-                    ->setFirstname($payload['given_name']);
+                    ->setEmail($payload['email'])//recuperation, enregistrement des données Google en bdd
+                    ->setFirstname($payload['given_name'])
+                    ->setLastname($payload['family_name']);
                 $this->em->persist($user);
                 $this->em->flush();
             }
