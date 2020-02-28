@@ -68,7 +68,6 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
             'googleId' => $payload['sub']
         ]);
 
-
         // si l'utilisateur n'existe pas, on essai de le récupérer par l'email
         if (!$user) {
             $user = $this->em
@@ -78,14 +77,16 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
             ]);
             if (!$user) {
                 $user = new Users;
-                $user->setEmail($payload ['email']);
+                $user
+                    ->setGoogleId($payload['sub'])
+                    ->setEmail($payload['email'])
+                    ->setFirstname($payload['given_name']);
+                $this->em->persist($user);
+                $this->em->flush();
             }
         }
 
         $user->setGoogleId($payload['sub']);
-
-        $this->em->persist($user);
-        $this->em->flush();
 
         return $user;
     }

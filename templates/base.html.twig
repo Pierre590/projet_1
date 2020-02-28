@@ -23,8 +23,20 @@
                         <a class="nav-link" href="/panneau">Panneau <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
-                <button id="btnGoogle" class="btn">Connexion G</button>
-                <button class="btn" onclick="signOut();">Déconnexion</button>
+                <ul class="navbar-nav ml-auto">
+                    {% if app.user %}
+                        <li class="nav-item ml-auto">
+                            <div class="nav-link">{{ app.user.firstname }}</div>
+                        </li>
+                        <li class="nav-item ml-auto">
+                            <button class="nav-link btn" onclick="signOut();">Déconnexion</button>
+                        </li>
+                    {% else %}
+                        <li class="nav-item ml-auto">
+                            <button id="btnGoogle" class="btn nav-link">Connexion</button>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </nav>
         {% block body %}{% endblock %}
@@ -91,6 +103,10 @@
                     const id_token = googleUser.getAuthResponse().id_token;
                     const xhr = new XMLHttpRequest();
                     xhr.open('POST', '{{ path('app_login_google') }}');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4)
+                            window.location.reload()
+                    }
                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xhr.send('id_token=' + id_token);
                 }, console.error);
@@ -98,6 +114,7 @@
 
             function signOut() {
                 auth2.signOut().then(function () {
+                    window.location.href= '{{ path('app_logout') }}'
                   console.log('User signed out.');
                 });
             }

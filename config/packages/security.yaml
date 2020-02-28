@@ -16,6 +16,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\GoogleAuthenticator
+            logout:
+                path:   app_logout
 
 
             # activate different ways to authenticate
