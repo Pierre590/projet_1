@@ -16,11 +16,9 @@ class TestController extends AbstractController
     {
         $search = $request->query->get('search', null);
 
-        if (count($search) < 3) {
 
-        }
 
-        if ($earch) {
+        if ($search) {
 
             $result = $this->getDoctrine()->getRepository(City::class)->createQueryBuilder('s')
                 ->where('s.name LIKE :name')
