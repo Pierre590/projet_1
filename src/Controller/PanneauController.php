@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Entity\Ride;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,8 +39,13 @@ class PanneauController extends AbstractController
             $entityManager->flush();
         }
 
+        $ville = $this->getDoctrine()
+        ->getRepository(City::class)
+        ->findAll();
+
 
         return $this->render('panneau/index.html.twig', [
+            'ville' => $ville,
             'controller_name' => 'PanneauController',
         ]);
     }

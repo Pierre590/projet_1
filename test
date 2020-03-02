@@ -1,0 +1,9 @@
+$city = 'nan';
+
+$result = $this->getDoctrine()->getRepository(City::class)->createQueryBuilder('s')
+    ->where('s.name LIKE :name')
+    ->setParameter('name', $city . '%')
+    ->getQuery()
+    ->getResult();
+
+dump($result);

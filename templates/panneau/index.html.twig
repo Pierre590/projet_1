@@ -68,7 +68,11 @@
                                             <input type="datetime" name="schedule" class="form-control" id="test1" placeholder="Indiquer l'heure du départ" required/>
                                         </div>
                                         <div class="form-group">
-                                            <label for="form2">Destination : </label>
+                                            <!--{% for villes in ville %}
+                                            <label for="form2">Destination : {{ villes.name }}</label>
+                                            <input type="text" name="arrival" class="form-control" id="test2" placeholder="Indiquer le lieu d'arrivée" required/>
+                                            {% endfor %}-->
+                                            <label for="form2">Destination :</label>
                                             <input type="text" name="arrival" class="form-control" id="test2" placeholder="Indiquer le lieu d'arrivée" required/>
                                         </div>
                                         <div class="form-group">
@@ -138,7 +142,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 
