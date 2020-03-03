@@ -30,7 +30,13 @@ class TestController extends AbstractController
 
         }
 
+        $ville = $this->getDoctrine()
+        ->getRepository(City::class)
+        ->findAll();
+
         return $this->render('test/index.html.twig', [
+            'result' => $result,
+            'ville' => $ville,
             'controller_name' => 'TestController',
         ]);
     }
