@@ -10,6 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
         <link rel="stylesheet" href="/style.css/my.css">
+
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -72,6 +73,22 @@
         <script src="https://apis.google.com/js/api:client.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
         <script>
+            $(document).ready(function() {
+                $('[search-autocomplete]').select2({
+                    minimumInputLength: 3,
+                    language: {
+                        inputTooShort () {
+                            return 'Entrer 3 cara'
+                        }
+                    },
+                    ajax: {
+                        url: '{{ path('search')}}',
+                        dataType: 'json'
+                    }
+                });
+            });
+
+
             function getCookie(cname) {
                 var name = cname + "=";
                 var decodedCookie = decodeURIComponent(document.cookie);

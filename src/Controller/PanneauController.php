@@ -43,6 +43,7 @@ class PanneauController extends AbstractController
         ->getRepository(City::class)
         ->findAll();
 
+        
 
         return $this->render('panneau/index.html.twig', [
             'ville' => $ville,
