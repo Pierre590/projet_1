@@ -8,12 +8,13 @@
         <meta name="google-signin-client_id" content="699258154622-t9og9u5681snjbtjktobs02lmq4p19ds.apps.googleusercontent.com">
         <title>{% block title %}Bienvenue{% endblock %}</title>
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('app') }}  <!--charger le csss depuis webpack -->
         {% endblock %}
     </head>
     <body
         data-login-google="{{ path('app_login_google') }}"
         data-logout="{{ path('app_logout') }}">
+         <!--charger l'api google connection -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/">Car CoWorker</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,18 +69,18 @@
         </footer>
         {% block javascripts %}
             <script src="https://apis.google.com/js/api:client.js"></script>
-            {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('app') }}  <!--charger le js depuis webpack -->
             <script>
-            $( document ).ready(function () {
-                $('[search-city]').select2({
-                    minimumInputLength: 2,
+            $( document ).ready(function () {  // attendre que jquery soit pret
+                $('[search-city]').select2({ // charger le selecteur de ville
+                    minimumInputLength: 2, //deux caracteres min pr fonctionner
                     language: {
                         inputTooShort () {
                             return 'Ville ou code postal, entrer 2 caracteres minimum'
                         }
                     },
                     ajax: {
-                        url: '{{ path('city_search')}}',
+                        url: '{{ path('city_search')}}',//recupere les donnees json depuis le controller city : test avec http://localhost:8000/city/search?q=nan
                         dataType: 'json'
                     }
                 });
