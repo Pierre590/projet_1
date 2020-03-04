@@ -8,39 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class TestController extends AbstractController
+class CityController extends AbstractController
 {
     /**
-     * @Route("/panneau/test", name="test")
-     */
-    public function index(Request $request)
-    {
-        $result = [];
-
-        $search = $request->query->get('search', null);
-
-        if (strlen($search) < 4) {
-            $search = null;
-        }
-
-        if ($search) {
-
-            $result = $this->getDoctrine()->getRepository(City::class)->createQueryBuilder('s')
-                ->where('s.name LIKE :name')
-                ->setParameter('name', $search . '%')
-                ->getQuery()
-                ->getResult();
-
-        }
-
-        return $this->render('test/index.html.twig', [
-            'result'=> $result,
-            'controller_name' => 'TestController',
-        ]);
-    }
-
-    /**
-     * @Route("/panneau/search", name="search")
+     * @Route("/city/search", name="city_search")
      */
     public function search(Request $request)
     {
@@ -63,7 +34,7 @@ class TestController extends AbstractController
                         $cities[] = $city;
                     }
                 }
-            } else if (strlen($search) > 2) {
+            } else if (strlen($search) > 1) {
                 $cities = $this->getDoctrine()->getRepository(City::class)
                     ->createQueryBuilder('s')
                     ->where('s.name LIKE :name')
@@ -81,7 +52,6 @@ class TestController extends AbstractController
                 'text' => $city->getName(),
             ];
         }
-
 
         return $this->json([
             'results' => $response

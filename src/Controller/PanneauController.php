@@ -22,14 +22,18 @@ class PanneauController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $schedule = $request->request->get('schedule');
-            $departure = $request->request->get('departure');
+            $arrival = $request->request->get('arrival');
             $spaceAvailable = $request->request->get('spaceAvailable');
             $observations = $request->request->get('observations');
+
+            $city = $this->getDoctrine()
+                ->getRepository(City::class)
+                ->find($arrival);
 
             $createRide = new Ride();
 
             $createRide->setSchedule(\DateTime::createFromFormat('H:i', $schedule));
-            $createRide->setArrival($departure);
+            $createRide->setArrival($city);
             $createRide->setUser($this->getUser());
             $createRide->setSpaceAvailable($spaceAvailable);
             $createRide->setObservations($observations);
@@ -43,7 +47,7 @@ class PanneauController extends AbstractController
         ->getRepository(City::class)
         ->findAll();
 
-        
+
 
         return $this->render('panneau/index.html.twig', [
             'ville' => $ville,
