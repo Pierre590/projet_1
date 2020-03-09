@@ -17,34 +17,47 @@ class CompanyController extends AbstractController
      */
     public function index(Request $request)
     {
+        $error = null;
 
          if ($request->isMethod('POST')) {
 
             $cityId = $request->request->get('cityId');
-            $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
-
-            $entityManager = $this->getDoctrine()->getManager();
-
             $firstName = $request->request->get('firstname');
             $adress = $request->request->get('adresse');
             $email = $request->request->get('email');
             $phone = $request->request->get('phone');
+            $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
 
-            $adresse = new Adress();
+            if (!$city) {
+                $error = "Veuiller sélectionner une ville";
+            } else if (!$firstName) {
+                $error = "Veuiller renseigner le nom de l'entreprise";
+            } else if (!$adress) {
+                $error = "Veuiller renseigner une adresse";
+            } else if (!$email) {
+                $error = "Veuiller renseigner un email valide";
+            } else if (!$phone) {
+                $error = "Veuiller renseigner un numéro de téléphone";
+            } else {
+                $entityManager = $this->getDoctrine()->getManager();
 
-            $adresse->setAdress($adress);
-            $adresse->setCity($city);
 
-            $company = new Company();
+                $adresse = new Adress();
 
-            $company->setFirstname($firstName);
-            $company->setAdress($adresse);
-            $company->setEmail($email);
-            $company->setPhone($phone);
+                $adresse->setAdress($adress);
+                $adresse->setCity($city);
 
-            $entityManager->persist($company);
+                $company = new Company();
 
-            $entityManager->flush();
+                $company->setFirstname($firstName);
+                $company->setAdress($adresse);
+                $company->setEmail($email);
+                $company->setPhone($phone);
+
+                $entityManager->persist($company);
+
+                $entityManager->flush();
+            }
         }
         return $this->render('company/index.html.twig', [
             'controller_name' => 'CompanyController',
