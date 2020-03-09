@@ -4,7 +4,7 @@
 @import "~select2/src/scss/core";
 
 body {
-    background-image: url('/images/background.jpg');
+    background-image: url('/images/background.png');
     background-attachment: fixed;
     background-size: cover;
     flex-direction: column;
@@ -28,4 +28,10 @@ footer {
 
 .g-signin2 {
     box-shadow: none;
+}
+
+.test {
+    
+    border-radius: 50px;
+    box-shadow: 10px 5px 5px rgb(48, 140, 76);
 }

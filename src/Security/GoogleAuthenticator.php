@@ -104,6 +104,7 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         // on success, let the request continue
+        
         return null;
     }
 

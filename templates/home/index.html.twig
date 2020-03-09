@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Acceuil{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
 
 <div class="container">
+    <button type="button" class="btn btn-secondary mt-3">
+        <a href="{{ path ('company')}}">Pour les entreprises, c'est par ici</a>
+    </button>
     <div class="jumbotron mt-4">
         <h1 class="display-4">Bonjour les CC Worker !</h1>
         <p class="lead">La solution simple de micro-covoiturage adaptée pour les entreprises</p>
@@ -12,7 +15,8 @@
         <p> Réaliser des économies, soyez acteurs de la réduction des émissions de Co2 et du
             désengorgement des routes au niveau de votre commune.<br>
             Cette solution vous permet ceci, la solution de covoiturage entre le lieu de votre domicile
-            et celui de votre lieu de travail, partager le trajet avec un collègue et même plusieurs.</p>
+            et celui de votre lieu de travail, partager le trajet avec un collègue et même plusieurs.
+        </p>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -44,6 +48,23 @@
             <img src="images/tutur.png" width = 250px height = 250px alt="">
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="jumbotron test">
+                <p class="lead">
+                    Encouragez vos salariés au covoiturage, vous aurez tout à y gagner :
+                </p>
+                <hr class="my-4">
+                <p>1 / Bien être au travail<br>
+                    2 / Lien social et cohésion d’équipe<br>
+                    3 / Libération de places de parking, une place de parking,
+                    c’est beaucoup d’espace pour un futur jardin partagé, une aire de pique-nique ? <br>
+                    4 / et bien sûr respect du Plan mobilité
+                </p>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}
