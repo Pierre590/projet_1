@@ -34,7 +34,7 @@ class Company
     private $phone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Adress", inversedBy="companies")
+     * @ORM\OneToOne(targetEntity="App\Entity\Adress", cascade={"persist", "remove"})
      */
     private $adress;
 

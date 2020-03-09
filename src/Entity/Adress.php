@@ -24,12 +24,7 @@ class Adress
     private $adress;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $zip;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\City")
      */
     private $city;
 
@@ -60,24 +55,12 @@ class Adress
         return $this;
     }
 
-    public function getZip(): ?int
-    {
-        return $this->zip;
-    }
-
-    public function setZip(int $zip): self
-    {
-        $this->zip = $zip;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
+    public function getCity(): ?City
     {
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(City $city): self
     {
         $this->city = $city;
 

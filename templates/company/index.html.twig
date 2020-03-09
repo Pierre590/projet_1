@@ -1,20 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CompanyController!{% endblock %}
+{% block title %}Entreprises{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/pierre/Documents/projects/projet_1/src/Controller/CompanyController.php'|file_link(0) }}">src/Controller/CompanyController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/pierre/Documents/projects/projet_1/templates/company/index.html.twig'|file_link(0) }}">templates/company/index.html.twig</a></code></li>
-    </ul>
+<div class="container mt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <p class="card-text">
+                        <form class="form" action="" method="post">
+                            <div class="form-group">
+                                <label for="form1">Nom de l'entreprise :</label>
+                                <input type="text" name="firstname" class="form-control" id="test1" placeholder="Indiquer le nom de l'entreprise" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="form2">Adresse postale :</label>
+                                <input type="text" name="adresse" class="form-control" id="test2" placeholder="Indiquer le numéro de la voie et la rue" required/>
+                                <div>
+                                    <select search-city class="search-city" name="cityId" style="width:100%;">
+                                        <option>Sélectionner une ville</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form3">Email :</label>
+                                <input type="text" name="email" class="form-control" id="test3" placeholder="Enter l'e-mail de l'entreprise" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="form4">Téléphone : </label>
+                                <input type="number" name="phone" class="form-control" id="test4" placeholder="Indiquer le numéro de téléphone (facultatif)" required/>
+                            </div>
+                            <input type="hidden" name="token" value=""/>
+                            <input class="btn btn-secondary" type="submit" name="submit" value="Valider"/>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                        </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 {% endblock %}
