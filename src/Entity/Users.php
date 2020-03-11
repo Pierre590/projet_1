@@ -61,8 +61,14 @@ class Users implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $company;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $company_role = [];
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Ride", mappedBy="user")
@@ -288,6 +294,18 @@ class Users implements UserInterface
                 $resa->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompanyRole(): ?array
+    {
+        return $this->company_role;
+    }
+
+    public function setCompanyRole(?array $company_role): self
+    {
+        $this->company_role = $company_role;
 
         return $this;
     }
