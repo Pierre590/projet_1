@@ -39,8 +39,9 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
+        $data = json_decode($request->getContent(), true);
         return [
-            'id_token' => $request->request->get('id_token'),
+            'id_token' => $data['id_token'],
         ];
     }
 

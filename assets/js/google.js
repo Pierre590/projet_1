@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import axios from './axios'
 
 const googleId = Cookies.get('GOOGLE_ID')
 
@@ -19,14 +20,11 @@ function attachSignin(element) {
     auth2.attachClickHandler(element, {}, function(googleUser) {
         const profile = googleUser.getBasicProfile().getName();
         const id_token = googleUser.getAuthResponse().id_token;
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', document.body.dataset.loginGoogle);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4)
-                window.location.reload()
-        }
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send('id_token=' + id_token);
+        axios.post(document.body.dataset.loginGoogle, {
+            id_token
+        }).then(() => {
+            window.location.reload()
+        })
     }, console.error);
 }
 

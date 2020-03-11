@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/google", name="app_login_google")
+     * @Route("/google", name="app_login_google", methods={"POST"})
      */
     public function loginGoogle(): JsonResponse
     {
