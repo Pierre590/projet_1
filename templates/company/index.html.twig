@@ -11,17 +11,20 @@
     </ul>
     <div id="myTabContent" class="tab-content mt-2">
         <div class="tab-pane fade show active text-light" id="Passager">
-            <p>- Créer un compte avec Google.<br>
-                - hfioiofjij<br>
-                - Valider l'inscription.
-            </p>
+            {% if not app.user %}
+                <p>Pour commencer, veuillez vous inscrire avec un compte Google</p>
+            {% else %}
+                <p>Maintenant, veuillez renseigner les informations de votre entreprise.</p>
+            {% endif %}
         </div>
     </div>
     <div class="row justify-content-md-center">
         <div class="col-md-8">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-body">
-                    <p class="card-text">
+            {% if not app.user %}
+                <button login-google class="btn btn-primary">Inscription avec Google</button>
+            {% else %}
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
                         <form class="form" action="" method="post">
                             <div class="form-group">
                                 <label for="form1">Nom de l'entreprise :</label>
@@ -48,9 +51,9 @@
                             <input class="btn btn-secondary" type="submit" name="submit" value="Valider"/>
                             <button type="reset" class="btn btn-primary" NAME="submit">Réinitialiser</button>
                         </form>
-                    </p>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 </div>

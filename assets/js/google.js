@@ -10,9 +10,9 @@ gapi.load('auth2', function () {
         client_id: '699258154622-t9og9u5681snjbtjktobs02lmq4p19ds.apps.googleusercontent.com',
     })
 
-    const btnGoogle = document.getElementById('btnGoogle')
-    if (btnGoogle) {
-        attachSignin(btnGoogle)
+    const btnGoogle = document.querySelectorAll('[login-google]')
+    if (btnGoogle.length) {
+        btnGoogle.forEach(attachSignin)
     }
 })
 

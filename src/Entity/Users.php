@@ -300,7 +300,11 @@ class Users implements UserInterface
 
     public function getCompanyRole(): ?array
     {
-        return $this->company_role;
+        $roles = $this->company_role;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     public function setCompanyRole(?array $company_role): self
@@ -308,5 +312,17 @@ class Users implements UserInterface
         $this->company_role = $company_role;
 
         return $this;
+    }
+
+    public function addCompanyRole(string $role): self
+    {
+        $this->company_role[] = $role;
+
+        return $this;
+    }
+
+    public function hasCompanyRole(string $role): bool
+    {
+        return in_array($role, $this->company_role);
     }
 }

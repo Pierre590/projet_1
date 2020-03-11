@@ -13,13 +13,29 @@ use Symfony\Component\HttpFoundation\Request;
 class CompanyController extends AbstractController
 {
     /**
+     * @Route("/company/admin", name="company_update")
+     */
+    public function updateCompany(Request $request)
+    {
+        $company = $this->getUser()->getCompany();
+
+        return $this->json(true);
+    }
+
+    /**
      * @Route("/company", name="company")
      */
     public function index(Request $request)
     {
+        $user = $this->getUser();
+
+        if ($user && $user->getCompany()) {
+            return $this->redirectToRoute('home');
+        }
+
         $error = null;
 
-         if ($request->isMethod('POST')) {
+         if ($user && $request->isMethod('POST')) {
 
             $cityId = $request->request->get('cityId');
             $firstName = $request->request->get('firstname');
@@ -56,7 +72,14 @@ class CompanyController extends AbstractController
 
                 $entityManager->persist($company);
 
+                $user->setCompany($company);
+                $user->addCompanyRole('ROLE_ADMIN');
+
+                $entityManager->persist($user);
+
                 $entityManager->flush();
+
+                return $this->redirectToRoute('home');
             }
         }
         return $this->render('company/index.html.twig', [
