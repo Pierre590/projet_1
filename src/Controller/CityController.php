@@ -21,8 +21,8 @@ class CityController extends AbstractController
 
         if ($search) {
 
-            if (preg_match('#^[0-9]{2,}$#', $search)) {
-                $result = $this->getDoctrine()->getRepository(Zip::class)
+            if (preg_match('#^[0-9]{2,}$#', $search)) {    // code postal Escript  //
+                $result = $this->getDoctrine()->getRepository(Zip::class)  // co table zip  //
                     ->createQueryBuilder('z')
                     ->where('z.code LIKE :code')
                     ->setParameter('code', $search . '%')
