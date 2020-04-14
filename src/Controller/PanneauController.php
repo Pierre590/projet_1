@@ -38,33 +38,58 @@ class PanneauController extends AbstractController
 
             $createRide = new Ride();
 
-            $createRide->setSchedule(\DateTime::createFromFormat('H:i', $schedule));
+            $schedule = $request->request->get('schedule');
 
-            if (!is_null($arrival)){
-                $createRide->setArrival($city);
-            }else{
-                $createRide->setDeparture($city);
+            $error = null;
+                if (!preg_match('/[0-9]{2}\:[0-9]{2}/', $schedule)) {
+                  $error =  "Le format est incorrecte";
+                }
+
+
+
+            if (! $error) {
+                $createRide->setSchedule(\DateTime::createFromFormat('H:i', $schedule));
+
+
+                if (!is_null($arrival)){
+                    $createRide->setArrival($city);
+                }else{
+                    $createRide->setDeparture($city);
+                }
+                $createRide->setUser($this->getUser());
+                $createRide->setSpaceAvailable($spaceAvailable);
+                $createRide->setObservations($observations);
+
+                $entityManager->persist($createRide);
+
+                $entityManager->flush();
             }
-            $createRide->setUser($this->getUser());
-            $createRide->setSpaceAvailable($spaceAvailable);
-            $createRide->setObservations($observations);
 
-            $entityManager->persist($createRide);
-
-            $entityManager->flush();
         }
 
-        $ville = $this->getDoctrine() //afficher les villes ds la recherche//
-        ->getRepository(City::class)
-        ->findAll();
-
         $user = $this->getUser(); //je recupere le user connecté//
-        $adress = $user->getAdress(); //je recupere son adresse//
-        $name = $adress->getCity();// je recupere la ville (city)//
-        $company = $user->getCompany();
+        $company = $user->getCompany();// je recupere l'id de la compagnie
+        $adress = $company->getAdress();//je recupere l' adresse de la coapgnie//
+
+
+        $arrivals = $this->getDoctrine() //afficher les villes ds la recherche//
+        ->getRepository(Ride::class)
+        ->findBy([
+            "arrival" => null,
+            "user" => $user
+        ]);
+
+        $departures = $this->getDoctrine() //afficher les villes ds la recherche//
+        ->getRepository(Ride::class)
+        ->findBy([
+            "departure" => null,
+            "user" => $user
+        ]);
+
 
         return $this->render('panneau/index.html.twig', [
-            'ville' => $ville,
+            'departures' => $departures,
+            'arrivals' => $arrivals,
             'adress'=> $adress,
             'controller_name' => 'PanneauController',
         ]);
