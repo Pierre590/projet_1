@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RideController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="arr mt-4 text-light">
+        Mes arrivées à : {{ app.user.company.firstname  }}, {{ adress.adress }} {{  adress.city.name }}
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mt-4 text-center">
+          <thead></thead>
+          <tbody>
+            <tr class="table-dark">
+              <th scope="row">Horaire</th>
+              <td>Depart</td>
+              <td>Pseudo</td>
+              <td>Place disponible</td>
+              <td>Observations</td>
+            </tr>
+            {% for arrival in arrivals %}
+                <tr class="table-dark ">
+                  <th scope="row">{{ arrival.schedule.format('H:i')}}</th>
+                  <td>{{ arrival.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
+                  <td>{{ arrival.user.firstName}}</td>
+                  <td><a href=""data-toggle="modal" data-target="#resa">
+                      {{ arrival.spaceAvailable }}</a>
+                  </td>
+                  <td>{{ arrival.observations }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    <div class="creer">
+        <a href="{{ path('ride_id') }}">
+            <button type="button" class="btn btn-success mt-3 mb-3">
+                Créer un <br>trajet
+            </button></a>
+    </div>
+</div>
+<div class="container">
+    <div class="arr mt-4 text-light">
+        Mes départs :
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mt-4 text-center">
+          <thead></thead>
+          <tbody>
+            <tr class="table-dark">
+              <th scope="row">Horaire</th>
+              <td>Depart</td>
+              <td>Pseudo</td>
+              <td>Place disponible</td>
+              <td>Observations</td>
+            </tr>
+            {% for departure in departures %}
+                <tr class="table-dark ">
+                  <th scope="row">{{ departure.schedule.format('H:i')}}</th>
+                  <td>{{ departure.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
+                  <td>{{ departure.user.firstName}}</td>
+                  <td><a href=""data-toggle="modal" data-target="#resa">
+                      {{ departure.spaceAvailable }}</a>
+                  </td>
+                  <td>{{ departure.observations }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

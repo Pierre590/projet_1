@@ -27,8 +27,14 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-
                     {% if app.user %}<!--si connecté apparition du prenom et deco-->
+                        <li class="nav-item dropdown">
+                            <div class="nav-link active dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Menu</div>
+                        <div class="dropdown-menu" style="">
+                            <a class="dropdown-item" href="/rides">Voir mes trajets</a>
+                            <a class="dropdown-item" href="/ride">Créer un trajet</a>
+                        </div>
+                        </li>
                         <li class="nav-item active ml-auto">
                             <div class="nav-link">{{ app.user.firstname }}</div>
                         </li>
@@ -37,7 +43,7 @@
                         </li>
                     {% else %}  <!--si pas connecté bouton google connexion et inscription -->
                         <li class="nav-item ml-auto">
-                            <button class="btn nav-link active">Inscription</button>
+                            <button login-google class="btn nav-link active">Inscription</button>
                         </li>
                         <li class="nav-item ml-auto">
                             <button login-google class="btn nav-link">Connexion</button>
