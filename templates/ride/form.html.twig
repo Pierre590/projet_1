@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire{% endblock %}
+
+{% block body %}
+
+<style>
+    #form_schedule .form-control { width: auto; }
+</style>
+
+<div class="container">
+    <div class="card border-success mt-3 mb-3">
+        <div class="card-header text-center">Créer votre trajet</div>
+        <div class="card-body">
+
+            {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.schedule) }}
+                    </div>
+                </div>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

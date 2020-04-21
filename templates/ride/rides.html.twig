@@ -32,11 +32,13 @@
           </tbody>
         </table>
     </div>
-    <a href="{{ path('ride_id') }}">
-        <button type="button" class="btn btn-outline-primary btn-lg btn-block">Créer un trajet</button>
+    <a href="{{ path('ride_id', {
+        type: "departure"
+    }) }}" class="btn btn-primary btn-lg btn-block">
+        Créer un trajet
     </a>
 </div>
-<div class="container">
+<div class="container pb-3">
     <div class="arr mt-4 text-light">
         Mes départs depuis : {{ app.user.company.firstname  }}, {{ adress.adress }} {{  adress.city.name }}
     </div>
@@ -65,8 +67,10 @@
           </tbody>
         </table>
     </div>
-    <a href="{{ path('ride_id') }}">
-        <button type="button" class="btn btn-primary btn-lg btn-block mb-4">Créer un trajet</button>
+    <a href="{{ path('ride_id', {
+        type: "arrival"
+    }) }}" class="btn btn-primary btn-lg btn-block">
+        Créer un trajet
     </a>
 </div>
 
