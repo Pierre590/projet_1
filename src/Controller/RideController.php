@@ -36,14 +36,14 @@ class RideController extends AbstractController
         $arrivals = $this->getDoctrine() //afficher les arrivés//
         ->getRepository(Ride::class)
         ->findBy([
-            "arrival" => null,
+            "departure" => null,
             "user" => $user
         ]);
 
         $departures = $this->getDoctrine() //afficher les départs //
         ->getRepository(Ride::class)
         ->findBy([
-            "departure" => null,
+            "arrival" => null,
             "user" => $user
         ]);
 
@@ -60,7 +60,7 @@ class RideController extends AbstractController
      */
     public function userID (Request $request, $id)
     {
-        $type = $request->get('type', 'departure');  //stockage type departure ou arrival pr le formulaire//
+        $type = $request->query->get('type', 'departure');  //stockage type departure ou arrival pr le formulaire//
 
         if ($id) {
             $ride = $this->getDoctrine()
@@ -70,7 +70,7 @@ class RideController extends AbstractController
                     "user" => $this->getUser()
                 ]);
 
-            $city = $ride->{'get'.$type}()->getId();
+            $city = $ride->{'get'.ucfirst($type)}()->getId();
         } else {
             $ride = new Ride;
             $ride->setUser($this->getUser());
@@ -83,9 +83,14 @@ class RideController extends AbstractController
         $builder->add('schedule', TimeType::class, ['label' => 'Horaire']);
         $formModifier = function($form, $city) use ($type) {
             $form->add($type, EntityType::class, [
+                'label' => $type === 'arrival' ? 'Arrivée':'Départ',
                 'class' => City::class,
                 'choice_label' => 'name',
-                'attr' => ['search-city' => true],
+                'attr' => [
+                    'search-city' => true,
+                    'style' => 'width: 100%',
+                    'required' => true,
+                ],
                 'query_builder' => function (EntityRepository $er) use ($city) {
                     return $er->createQueryBuilder('c')
                         ->where('c.id = :id')
@@ -112,10 +117,12 @@ class RideController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //ride getcity si pas de ville = erreur
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ride);
             $entityManager->flush();
 
+            return $this->redirectToRoute('rides');
         }
 
         return $this->render('ride/form.html.twig', [

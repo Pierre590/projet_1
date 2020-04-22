@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RideController!{% endblock %}
+{% block title %}Formulaires{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -11,24 +11,31 @@
         <table class="table table-hover mt-4 text-center">
           <thead></thead>
           <tbody>
-            <tr class="table-dark">
-              <th scope="row">Horaire</th>
-              <td>Depart</td>
-              <td>Pseudo</td>
-              <td>Place disponible</td>
-              <td>Observations</td>
+            <tr class="table-secondary text-dark" style = "font-weight:bold;">
+                <th scope="row">Horaire</th>
+                <td>Depart</td>
+                <td>Pseudo</td>
+                <td>Place disponible</td>
+                <td>Observations</td>
+                <td>Modifications</td>
             </tr>
-            {% for arrival in arrivals %}
-                <tr class="table-dark ">
-                  <th scope="row">{{ arrival.schedule.format('H:i')}}</th>
-                  <td>{{ arrival.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
-                  <td>{{ arrival.user.firstName}}</td>
-                  <td><a href=""data-toggle="modal" data-target="#resa">
-                      {{ arrival.spaceAvailable }}</a>
-                  </td>
-                  <td>{{ arrival.observations }}</td>
+            {% for departure in departures %}
+                <tr class="table-secondary ">
+                    <th scope="row">{{ departure.schedule.format('H:i')}}</th>
+                    <td>{{ departure.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td>{{ departure.user.firstName}}</td>
+                    <td><a style="color:blue;" href=""data-toggle="modal" data-target="#resa">
+                        {{ departure.spaceAvailable }}</a>
+                    </td>
+                    <td>{{ departure.observations }}</td>
+                    <td> <a style="color:blue; "href="{{ path('ride_id', {
+                        id: departure.id,
+                        type: "departure"
+                        }) }}">Modifier</a>
+                    </td>
                 </tr>
             {% endfor %}
+
           </tbody>
         </table>
     </div>
@@ -46,22 +53,28 @@
         <table class="table table-hover mt-4 text-center">
           <thead></thead>
           <tbody>
-            <tr class="table-dark">
+            <tr class="table-secondary text-dark" style = "font-weight:bold;">
               <th scope="row">Horaire</th>
               <td>Arrivée</td>
               <td>Pseudo</td>
               <td>Place disponible</td>
               <td>Observations</td>
+              <td>Modifications</td>
             </tr>
-            {% for departure in departures %}
-                <tr class="table-dark ">
-                  <th scope="row">{{ departure.schedule.format('H:i')}}</th>
-                  <td>{{ departure.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
-                  <td>{{ departure.user.firstName}}</td>
-                  <td><a href=""data-toggle="modal" data-target="#resa">
-                      {{ departure.spaceAvailable }}</a>
-                  </td>
-                  <td>{{ departure.observations }}</td>
+            {% for arrival in arrivals %}
+                <tr class="table-secondary ">
+                    <th scope="row">{{ arrival.schedule.format('H:i')}}</th>
+                    <td>{{ arrival.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td>{{ arrival.user.firstName}}</td>
+                    <td><a style="color:blue;" href=""data-toggle="modal" data-target="#resa">
+                      {{ arrival.spaceAvailable }}</a>
+                    </td>
+                    <td>{{ arrival.observations }}</td>
+                    <td> <a style="color:blue;" href="{{ path('ride_id', {
+                        id: arrival.id,
+                        type: "arrival"
+                        }) }}">Modifier</a>
+                    </td>
                 </tr>
             {% endfor %}
           </tbody>
