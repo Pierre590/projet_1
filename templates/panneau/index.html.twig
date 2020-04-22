@@ -6,13 +6,13 @@
 
 <div class="container">
     <div class="arr mt-4 text-light">
-        Arrivées : {{ app.user.company.firstname  }}, {{ adress.adress }} {{  adress.city.name }}
+        Mes arrivées à : {{ app.user.company.firstname  }}, {{ adress.adress }} {{  adress.city.name }}
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4 text-center">
           <thead></thead>
           <tbody>
-            <tr class="table-dark">
+            <tr class="table-light">
               <th scope="row">Horaire</th>
               <td>Depart</td>
               <td>Pseudo</td>
@@ -20,11 +20,11 @@
               <td>Observations</td>
             </tr>
             {% for arrival in arrivals %}
-                <tr class="table-dark ">
+                <tr class="table-light ">
                   <th scope="row">{{ arrival.schedule.format('H:i')}}</th>
                   <td>{{ arrival.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
                   <td>{{ arrival.user.firstName}}</td>
-                  <td><a href=""data-toggle="modal" data-target="#resa">
+                  <td><a style="color:blue;" href=""data-toggle="modal" data-target="#resa">
                       {{ arrival.spaceAvailable }}</a>
                   </td>
                   <td>{{ arrival.observations }}</td>
@@ -33,247 +33,37 @@
           </tbody>
         </table>
     </div>
-    <div class="creer">
-        <button type="button" data-toggle="modal" data-target="#creerArr" class="btn btn-success mt-3 mb-3">
-            Créer un <br>trajet
-        </button>
-    </div>
-    <div class="modal fade" id="creerArr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="creerArr">Création de trajet</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 mt-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form class="form" action="" method="post">
-                                        <div class="form-group">
-                                            <label for="form1">Horaire :</label>
-                                            <!--<input type="datetime" name="schedule" class="form-control" id="test1" placeholder="Indiquer l'heure du départ ex : 8:00 pour 8h00"  required/>-->
-                                            <input type="time" id="schedule" name="schedule"min="00:00" max="23:59" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="form2">Départ :</label>
-                                            <div>
-                                                <select search-city class="search-city" name="departure" style="width:100%;">
-                                                    <option>Sélectionner une ville</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="form3">Pseudo :</label>
-                                            <input type="text" name="user" class="form-control" id="test3" placeholder="Enter votre nom, pseudo" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="form4">Place disponible : </label>
-                                            <input type="number" name="spaceAvailable" class="form-control" id="test4" placeholder="Indiquer les places disponibles" step="0" min="0" max="4"required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="form5">Observations : </label>
-                                            <input type="text" name="observations" class="form-control" id="test5" placeholder="Indiquer un éventuel retard, le lieu de rendez-vous..." required/>
-                                        </div>
-                                        <input type="hidden" name="token" value=""/>
-                                        <input class="btn btn-secondary" type="submit" name="submit" value="Valider"/>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="annuler">
-        <button type="button" data-toggle="modal" data-target="#annulation" class="btn btn-danger mt-3 mb-3">
-            Annuler ma <br>réservation
-        </button>
-    </div>
-    <div class="modal fade" id="annulation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="annulation">Annulation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                Vous êtes sur le point d'annuler un trajet.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Valider</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="resa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="resa">Réservation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                Vous êtes sur le point de réserver ce trajet.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Valider</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <div class="container">
-    <div class="dep mt-4 text-light">
-        Départs :
+    <div class="arr mt-4 text-light">
+        Mes départs depuis : {{ app.user.company.firstname  }}, {{ adress.adress }} {{  adress.city.name }}
     </div>
     <div class="table-responsive">
-        <table class="table table-hover mt-4 text-center">
+        <table class="table table-hover mt-4 mb-4 text-center">
           <thead></thead>
           <tbody>
-            <tr class="table-dark">
+            <tr class="table-secondary">
               <th scope="row">Horaire</th>
               <td>Destination</td>
               <td>Pseudo</td>
               <td>Place disponible</td>
               <td>Observations</td>
             </tr>
-            <tr class="table-dark ">
-              <th scope="row">16h30</th>
-              <td>Nancy</td>
-              <td>Lui</td>
-              <td> <a href=""data-toggle="modal" data-target="#resa">
-                  3 places</a>
-              </td>
-              <td>A l'heure</td>
-            </tr>
-            <tr class="table-dark">
-              <th scope="row">17h00</th>
-              <td>Ludres</td>
-              <td>Moi</td>
-              <td>2 places</td>
-              <td>A l'heure</td>
-            </tr>
-            <tr class="table-dark">
-              <th scope="row">17h00</th>
-              <td>Paris</td>
-              <td>Elle</td>
-              <td>4 places</td>
-              <td>Retard 30 min</td>
-            </tr>
+            {% for departure in departures %}
+                <tr class="table-secondary ">
+                    <th scope="row">{{ departure.schedule.format('H:i')}}</th>
+                    <td>{{ departure.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td>{{ departure.user.firstName}}</td>
+                    <td><a style="color:blue;" href=""data-toggle="modal" data-target="#resa">
+                        {{ departure.spaceAvailable }}</a>
+                    </td>
+                    <td>{{ departure.observations }}</td>
+                </tr>
+            {% endfor %}
           </tbody>
         </table>
     </div>
-    <div class="creer">
-        <button type="button" data-toggle="modal" data-target="#creer" class="btn btn-success mt-3 mb-3">
-            Créer un <br>trajet
-        </button>
-    </div>
-    <div class="modal fade" id="creer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="creer">Création de trajet</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 mt-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form class="form" action="" method="post">
-                                        <div class="form-group">
-                                            <label for="form1">Horaire :</label>
-                                            <input type="datetime" name="schedule" class="form-control" id="test1" placeholder="Indiquer l'heure du départ. ex : 8:00 pour 8h00" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="form2">Destination :</label>
-                                            <div>
-                                                <select search-city class="search-city" name="arrival" style="width:100%;">
-                                                    <option>Sélectionner une ville</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="form3">Pseudo :</label>
-                                            <input type="text" name="user" class="form-control" id="test3" placeholder="Enter votre nom, pseudo" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="form4">Place disponible : </label>
-                                            <input type="number" name="spaceAvailable" class="form-control" id="test4" placeholder="Indiquer les places disponibles" step="1" min="0" max="4"required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="form5">Observations : </label>
-                                            <input type="text" name="observations" class="form-control" id="test5" placeholder="Indiquer un éventuel retard" required/>
-                                        </div>
-                                        <input type="hidden" name="token" value=""/>
-                                        <input class="btn btn-secondary" type="submit" name="submit" value="Valider"/>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="annuler">
-        <button type="button" data-toggle="modal" data-target="#annulation" class="btn btn-danger mt-3 mb-3">
-            Annuler ma <br>réservation
-        </button>
-    </div>
-    <div class="modal fade" id="annulation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="annulation">Annulation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                Vous êtes sur le point d'annuler un trajet.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Valider</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="resa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="resa">Réservation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                Vous êtes sur le point de réserver ce trajet.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Valider</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 
 {% endblock %}
