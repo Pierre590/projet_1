@@ -86,4 +86,30 @@ class CompanyController extends AbstractController
             'controller_name' => 'CompanyController',
         ]);
     }
+
+    /**
+     * @Route("/company/code", name="company_code")
+     */
+    public function code(Request $request)
+    {
+
+        $company = $this->getUser()->getCompany();
+
+        $code = '';
+        for ($i = 0; $i < 7; $i++) {
+            $code .= chr(rand(ord('a'), ord('z')));
+        }
+        // voir pr améliorer, autre méthode//
+        $code .=  $company->getId();
+
+        $company->setCode($code);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+
+        return $this->render('company/code.html.twig', [
+            'code' => $code,
+            'controller_name' => 'CompanyController',
+        ]);
+    }
+
 }

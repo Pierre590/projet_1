@@ -239,7 +239,7 @@ class Users implements UserInterface
     /**
      * @return Collection|Ride[]
      */
-    public function getRides(): Collection
+    public function getRides()
     {
         return $this->rides;
     }
@@ -270,7 +270,7 @@ class Users implements UserInterface
     /**
      * @return Collection|Resa[]
      */
-    public function getResas(): Collection
+    public function getResas()
     {
         return $this->resas;
     }

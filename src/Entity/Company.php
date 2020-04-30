@@ -48,6 +48,11 @@ class Company
      */
     private $rides;
 
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $code;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -112,6 +117,8 @@ class Company
      */
     public function getUsers(): Collection
     {
+        dump($this->users);
+        die;
         return $this->users;
     }
 
@@ -165,6 +172,18 @@ class Company
                 $ride->setCompany(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }

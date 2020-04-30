@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Ride;
 use App\Entity\Users;
 use App\Entity\City;
+use App\Entity\Resa;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,6 +27,7 @@ class RideController extends AbstractController
 {
     /**
      * @Route("/rides", name="rides")
+     *@IsGranted("ROLE_USER")
      */
     public function rides()
     {
@@ -57,23 +60,26 @@ class RideController extends AbstractController
     }
     /**
      * @Route("/ride/{id}", name="ride_id", defaults={"id":null})
+     *@IsGranted("ROLE_USER")
      */
     public function userID (Request $request, $id)
     {
-        $type = $request->query->get('type', 'departure');  //stockage type departure ou arrival pr le formulaire//
+        $type = $request->query->get('type', 'departure');
+         //stockage type departure ou arrival pr le formulaire//
+        $user = $this->getUser();
 
         if ($id) {
             $ride = $this->getDoctrine()
                 ->getRepository(Ride::class)
                 ->findOneBy([
                     "id" => $id,
-                    "user" => $this->getUser()
+                    "user" => $user,
                 ]);
 
             $city = $ride->{'get'.ucfirst($type)}()->getId();
         } else {
             $ride = new Ride;
-            $ride->setUser($this->getUser());
+            $ride->setUser($user);
             $city = null;
         }
 
@@ -117,6 +123,9 @@ class RideController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $ride->setCompany($user->getCompany());
+
             //ride getcity si pas de ville = erreur
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ride);
@@ -130,5 +139,42 @@ class RideController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/ride/{id}/resa", name="ride_id_resa", defaults={"id":null})
+     *@IsGranted("ROLE_USER")
+     */
+    public function resa($id)
+    {
+        $ride = $this->getDoctrine()
+            ->getRepository(Ride::class)
+            ->find($id);
+
+
+            if (count($ride->getResas()) === $ride->getSpaceAvailable()) {
+                throw new \Exception('plus de place disponible'); //securise le code qd 0 place
+
+            }
+
+
+            foreach ($ride->getResas() as $resa) {
+                if ($resa->getUser() === $this->getUser() ) {
+                    throw new \Exception ('user existe deja'); //securise sur un trajet deja resa
+                }
+            }
+
+        $resa = new Resa; //objet user:null :ride= nul
+        $resa->setRide($ride);  //objet user:null :ride= chiffre de la resa
+        $resa->setUser($this->getUser());// //objet user = id de l'user :ride= chiffre de la resa
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($resa);
+        $entityManager->flush();  //enregistrement en bcadd
+
+        return $this->redirectToRoute('panneau');
+
+    }
+
 
 }
