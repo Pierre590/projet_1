@@ -21,11 +21,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor03">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/panneau">Panneaux <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
+                {% if app.user and app.user.company %}
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('panneau_company', {
+                                company: app.user.company.id
+                            }) }}">Panneaux <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                {% endif %}
                 <ul class="navbar-nav ml-auto">
                     {% if app.user %}<!--si connecté apparition du prenom et deco-->
                         <li class="nav-item dropdown">

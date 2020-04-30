@@ -172,7 +172,9 @@ class RideController extends AbstractController
         $entityManager->persist($resa);
         $entityManager->flush();  //enregistrement en bcadd
 
-        return $this->redirectToRoute('panneau');
+        return $this->redirectToRoute('panneau_company', [
+            'company' => $this->getUser()->getCompany()->getId()
+        ]);
 
     }
 

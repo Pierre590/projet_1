@@ -79,7 +79,7 @@ class CompanyController extends AbstractController
 
                 $entityManager->flush();
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('company_code');
             }
         }
         return $this->render('company/index.html.twig', [
@@ -99,7 +99,7 @@ class CompanyController extends AbstractController
         for ($i = 0; $i < 7; $i++) {
             $code .= chr(rand(ord('a'), ord('z')));
         }
-        // voir pr améliorer, autre méthode//
+        // voir pr améliorer, ajouter le timestamp autre méthode sans l'id comapny crypté, encodé l'id//
         $code .=  $company->getId();
 
         $company->setCode($code);
