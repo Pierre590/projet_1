@@ -80,6 +80,8 @@ class Users implements UserInterface
      */
     private $resas;
 
+
+
     public function __construct()
     {
         $this->rides = new ArrayCollection();
@@ -325,4 +327,6 @@ class Users implements UserInterface
     {
         return in_array($role, $this->company_role);
     }
+
+    
 }
