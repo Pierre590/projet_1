@@ -16,7 +16,7 @@
         data-logout="{{ path('app_logout') }}">
          <!--charger l'api google connection -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">Car CoWorker</a>
+            <a class="navbar-brand" href="{{ path('home') }}">Car CoWorker</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,8 +35,9 @@
                         <li class="nav-item dropdown">
                             <div class="nav-link active dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Menu</div>
                         <div class="dropdown-menu" style="">
-                            <a class="dropdown-item" href="/rides">Voir mes trajets</a>
-                            <a class="dropdown-item" href="/ride">Créer un trajet</a>
+                            <a class="dropdown-item" href="{{ path('rides')}}">Voir mes trajets</a>
+                            <a class="dropdown-item" href="{{ path('ride_id') }}">Créer un trajet</a>
+                            <a class="dropdown-item" href="{{path('home_user_code') }}">Enregitrer mon code entreprise</a>
                         </div>
                         </li>
                         <li class="nav-item active ml-auto">

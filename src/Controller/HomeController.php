@@ -16,4 +16,15 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+    /**
+     * @Route("/user/code", name="home_user_code")
+     */
+    public function bliq()
+    {
+        return $this->render('home/user.html.twig', [
+
+        ]);
+    }
+
 }
