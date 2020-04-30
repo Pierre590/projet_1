@@ -3,7 +3,21 @@
 {% block title %}Identifiant entreprise{% endblock %}
 
 {% block body %}
-
-
-
+    <div class="container">
+        <form class="" method="post">
+            <div class="jumbotron mt-4 text-center">
+                <hr class="my-4">
+                <p>Renseigner le code transmis par votre entreprise pour finaliser votre inscription
+                    et profiter plainement du service.
+                </p>
+                <div class="form-group">
+                    <input type="text" name="codeEnt" style="text-align:center;" placeholder="Code entreprise" required>
+                </div>
+                <hr class="my-4">
+                <p class="lead">
+                    <button class="btn btn-primary btn-lg mt-2" type="submit" name="submit">Valider</button>
+                </p>
+            </div>
+        </form>
+    </div>
 {% endblock %}
