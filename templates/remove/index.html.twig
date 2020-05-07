@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes trajets{% endblock %}
+{% block title %}Supprimer un trajet{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -30,7 +30,7 @@
                         <a style="color:blue; "href="{{ path('ride_id', {
                             id: departure.id,
                             type: "departure"
-                            }) }}">Modifier
+                            }) }}">Supprimer
                         </a>
                     </td>
                 </tr>
@@ -38,11 +38,6 @@
           </tbody>
         </table>
     </div>
-    <a href="{{ path('ride_id', {
-        type: "departure"
-    }) }}" class="btn btn-primary btn-lg btn-block">
-        Créer un trajet
-    </a>
 </div>
 <div class="container pb-3">
     <div class="arr mt-4 text-light">
@@ -71,7 +66,7 @@
                         <a style="color:blue;" href="{{ path('ride_id', {
                             id: arrival.id,
                             type: "arrival"
-                            }) }}">Modifier
+                            }) }}">Supprimer
                         </a>
                     </td>
                 </tr>
@@ -79,14 +74,5 @@
           </tbody>
         </table>
     </div>
-    <a href="{{ path('ride_id', {
-        type: "arrival"
-    }) }}" class="btn btn-primary btn-lg btn-block">
-        Créer un trajet
-    </a>
 </div>
-
-
-
-
 {% endblock %}

@@ -22,7 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
 class RideController extends AbstractController
 {
     /**
@@ -43,6 +42,7 @@ class RideController extends AbstractController
             "user" => $user
         ]);
 
+
         $departures = $this->getDoctrine() //afficher les départs //
         ->getRepository(Ride::class)
         ->findBy([
@@ -51,13 +51,14 @@ class RideController extends AbstractController
         ]);
 
 
-
         return $this->render('ride/rides.html.twig', [
             'arrivals'  => $arrivals,
             'departures' => $departures,
             'adress'=> $adress,
-        ]);
+         ]);
     }
+
+    
     /**
      * @Route("/ride/{id}", name="ride_id", defaults={"id":null})
      *@IsGranted("ROLE_USER")
@@ -109,6 +110,8 @@ class RideController extends AbstractController
         $builder->add('spaceAvailable', NumberType::class, ['label' => 'Place disponible']);
         $builder->add('observations', TextType::class, ['label' => 'Observations']);
         $builder->add('save', SubmitType::class, ['label' => 'Valider']);
+
+
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($formModifier, $type) {
             $form = $event->getForm();

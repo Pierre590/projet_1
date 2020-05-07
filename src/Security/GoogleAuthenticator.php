@@ -129,7 +129,7 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
     {
         $data = [
             // you might translate this message
-            'message' => 'Authentication Required'
+            'message' => 'Vous devez être connecté pour accéder à cette section'
         ];
 
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);

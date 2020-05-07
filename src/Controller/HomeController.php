@@ -23,27 +23,34 @@ class HomeController extends AbstractController
     /**
      * @Route("/user/code", name="home_user_code")
      */
-    public function codeEnt()
+    public function codeEnt(Request $request)
     {
 
-        $repository = $this->getDoctrine()->getRepository(Company::class);
+        $code = (string) $request->request->get('codeEnt'); //string = peut eviter les failles de securités
 
-        $codeEnt = $repository->findOneBy([
-            'code' => 'yagxnkx2'
-        ]);
+        $error = null;
 
-        dump($codeEnt);
-        die;
 
-        if ($codeEnt) {
-            $this->getUser()->setCompany($id);
+        if ($code) {
+            $repository = $this->getDoctrine()->getRepository(Company::class);
+
+            $company = $repository->findOneBy([
+                'code' => $code   //recup via methode post.//
+            ]);
+            if ($company) {
+                $this->getUser()->setCompany($company);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+                    //renvoyer un sms de succés et redirect vers panneau gnrl
+            }else {
+                //affciher un sms erreur code incorrect
+                $error = 'code_invalide';
+            }
         }
 
-
-
-
         return $this->render('home/user.html.twig', [
-
+            'error' => $error,  //a envoyer à la vue pr generer un sms d'erreur en ca de mauvais code..
         ]);
     }
 
