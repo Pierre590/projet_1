@@ -20,17 +20,22 @@
                 <td>Modifications</td>
             </tr>
             {% for departure in departures %}
-                <tr class="table-secondary ">
-                    <th scope="row">{{ departure.schedule.format('H:i')}}</th>
-                    <td>{{ departure.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
-                    <td>{{ departure.user.firstName}}</td>
-                    <td>{{ departure.spaceAvailable - departure.resas | length }}</td>
-                    <td>{{ departure.observations }}</td>
-                    <td>
+                <tr class="table-secondary">
+                    <th scope="row" style="vertical-align: middle;">{{ departure.schedule.format('H:i')}}</th>
+                    <td style="vertical-align: middle;">{{ departure.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td style="vertical-align: middle;">{{ departure.user.firstName}}</td>
+                    <td style="vertical-align: middle;">{{ departure.spaceAvailable - departure.resas | length }}</td>
+                    <td style="vertical-align: middle;">{{ departure.observations }}</td>
+                    <td style="vertical-align: middle;">
                         <a style="color:blue; "href="{{ path('ride_id', {
                             id: departure.id,
                             type: "departure"
                             }) }}">Modifier
+                        </a>
+                    </br>
+                        <a href="{{ path('ride_remove', {
+                            id: departure.id
+                            })}}">Supprimer
                         </a>
                     </td>
                 </tr>
@@ -62,16 +67,21 @@
             </tr>
             {% for arrival in arrivals %}
                 <tr class="table-secondary ">
-                    <th scope="row">{{ arrival.schedule.format('H:i')}}</th>
-                    <td>{{ arrival.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
-                    <td>{{ arrival.user.firstName}}</td>
-                    <td>{{ arrival.spaceAvailable - arrival.resas | length }}</td>
-                    <td>{{ arrival.observations }}</td>
-                    <td>
+                    <th scope="row" style="vertical-align: middle;">{{ arrival.schedule.format('H:i')}}</th>
+                    <td style="vertical-align: middle;">{{ arrival.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td style="vertical-align: middle;">{{ arrival.user.firstName}}</td>
+                    <td style="vertical-align: middle;">{{ arrival.spaceAvailable - arrival.resas | length }}</td>
+                    <td style="vertical-align: middle;">{{ arrival.observations }}</td>
+                    <td style="vertical-align: middle;">
                         <a style="color:blue;" href="{{ path('ride_id', {
                             id: arrival.id,
                             type: "arrival"
                             }) }}">Modifier
+                        </a>
+                    </br>
+                        <a href="{{ path('ride_remove', {
+                            id: arrival.id
+                            })}}">Supprimer
                         </a>
                     </td>
                 </tr>

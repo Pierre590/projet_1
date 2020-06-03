@@ -54,7 +54,7 @@ class Ride
     private $arrival;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Resa", mappedBy="ride")
+     * @ORM\OneToMany(targetEntity="App\Entity\Resa", mappedBy="ride", orphanRemoval=true)
      */
     private $resas;
 
