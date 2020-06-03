@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes trajets{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="arr mt-4 text-light">
+        Mes arrivées à : {{ app.user.company.firstname  }}, {{ adress.adress }} {{  adress.city.name }}
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mt-4 text-center">
+          <thead></thead>
+          <tbody>
+            <tr class="table-secondary text-dark" style = "font-weight:bold;">
+                <th scope="row">Horaire</th>
+                <td>Depart</td>
+                <td>Pseudo</td>
+                <td>Place disponible</td>
+                <td>Observations</td>
+                <td>Modifications</td>
+            </tr>
+            {% for departure in departures %}
+                <tr class="table-secondary">
+                    <th scope="row" style="vertical-align: middle;">{{ departure.ride.schedule.format('H:i')}}</th>
+                    <td style="vertical-align: middle;">{{ departure.ride.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td style="vertical-align: middle;">{{ departure.ride.user.firstName}}</td>
+                    <td style="vertical-align: middle;">{{ departure.ride.spaceAvailable - departure.ride.resas | length }}</td>
+                    <td style="vertical-align: middle;">{{ departure.ride.observations }}</td>
+                    <td style="vertical-align: middle;">
+                        <a
+                            style="color:blue;"
+                            href="{{ path('resa_remove', {
+                                id: departure.id
+                            })}}">Supprimer ma </br>réservation
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+<div class="container pb-3">
+    <div class="arr mt-4 text-light">
+        Mes départs depuis : {{ app.user.company.firstname  }}, {{ adress.adress }} {{  adress.city.name }}
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mt-4 text-center">
+          <thead></thead>
+          <tbody>
+            <tr class="table-secondary text-dark" style = "font-weight:bold;">
+              <th scope="row">Horaire</th>
+              <td>Arrivée</td>
+              <td>Pseudo</td>
+              <td>Place disponible</td>
+              <td>Observations</td>
+              <td>Modifications</td>
+            </tr>
+            {% for arrival in arrivals %}
+                <tr class="table-secondary ">
+                    <th scope="row" style="vertical-align: middle;">{{ arrival.schedule.format('H:i')}}</th>
+                    <td style="vertical-align: middle;">{{ arrival.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td style="vertical-align: middle;">{{ arrival.user.firstName}}</td>
+                    <td style="vertical-align: middle;">{{ arrival.spaceAvailable - arrival.resas | length }}</td>
+                    <td style="vertical-align: middle;">{{ arrival.observations }}</td>
+                    <td style="vertical-align: middle;">
+                        <a style="color:blue;" href="{{ path('ride_remove', {
+                            id: arrival.id
+                            })}}">Supprimer ma </br>réservation
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

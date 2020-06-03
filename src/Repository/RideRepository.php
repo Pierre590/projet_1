@@ -19,6 +19,28 @@ class RideRepository extends ServiceEntityRepository
         parent::__construct($registry, Ride::class);
     }
 
+    public function findByUserResa($userId, $type = null)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $where = '';
+
+        if ($type === 'departure') {
+            $where = ' AND ri.arrival IS NULL';
+        } else if ($type === 'arrival') {
+            $where = ' AND ri.departure IS NULL';
+        }
+
+        $query = $entityManager->createQuery(
+            'SELECT ra
+            FROM App\Entity\Resa ra
+            INNER JOIN ra.ride ri
+            WHERE ra.user = :id' . $where
+        )->setParameter('id', $userId);
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Ride[] Returns an array of Ride objects
     //  */

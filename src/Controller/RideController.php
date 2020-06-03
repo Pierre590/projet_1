@@ -58,7 +58,7 @@ class RideController extends AbstractController
          ]);
     }
 
-    
+
     /**
      * @Route("/ride/{id}", name="ride_id", defaults={"id":null})
      *@IsGranted("ROLE_USER")
@@ -173,7 +173,7 @@ class RideController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($resa);
-        $entityManager->flush();  //enregistrement en bcadd
+        $entityManager->flush();  //enregistrement en bdd
 
         return $this->redirectToRoute('panneau_company', [
             'company' => $this->getUser()->getCompany()->getId()
@@ -181,5 +181,26 @@ class RideController extends AbstractController
 
     }
 
+    /**
+     * @Route("/ride/remove/{id}", name="ride_remove")
+     */
+    public function remove($id)  //ajouter un isgranted//
+    {
+        $repository = $this->getDoctrine()->getRepository(Ride::class);
+        $ride = $repository->findOneBy([
+            'user' => $this->getUser(),
+            'id' => $id
+        ]);
 
+        if (!$ride) {
+            return $this->redirectToRoute('rides');
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($ride);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('rides');
+
+    }
 }
