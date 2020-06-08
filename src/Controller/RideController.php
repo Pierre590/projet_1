@@ -78,18 +78,24 @@ class RideController extends AbstractController
                     "user" => $user,
                 ]);
 
-            $city = $ride->{'get'.ucfirst($type)}()->getId();
+            if ($type === 'departure') {
+                $city = $ride->getDeparture();
+            } else {
+                $city = $ride->getArrival();
+            }
+            $cityId = $city->getId();
         } else { // Sinon création d'un trajet
             $ride = new Ride;
             $ride->setUser($user);
-            $city = null;
+            $cityId = null;
         }
 
         // Création du formulaire
         $builder = $this->createFormBuilder($ride);
 
         $builder->add('schedule', TimeType::class, ['label' => 'Horaire']);
-        $formModifier = function($form, $city) use ($type) {
+
+        $formModifier = function($form, $cityId) use ($type) {
             $form->add($type, EntityType::class, [
                 'label' => $type === 'arrival' ? 'Arrivée':'Départ',
                 'class' => City::class,
@@ -99,14 +105,14 @@ class RideController extends AbstractController
                     'style' => 'width: 100%',
                     'required' => true,
                 ],
-                'query_builder' => function (EntityRepository $er) use ($city) {
+                'query_builder' => function (EntityRepository $er) use ($cityId) {
                     return $er->createQueryBuilder('c')
                         ->where('c.id = :id')
-                        ->setParameter('id',$city);
+                        ->setParameter('id', $cityId);
                 },
             ]);
         };
-        $formModifier($builder, $city);
+        $formModifier($builder, $cityId);
 
         $builder->add('spaceAvailable', NumberType::class, ['label' => 'Place disponible']);
         $builder->add('observations', TextType::class, ['label' => 'Observations']);
