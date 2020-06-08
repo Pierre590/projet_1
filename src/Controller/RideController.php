@@ -6,6 +6,8 @@ use App\Entity\Ride;
 use App\Entity\Users;
 use App\Entity\City;
 use App\Entity\Resa;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityRepository;
@@ -85,34 +87,46 @@ class RideController extends AbstractController
 
         // Création du formulaire
         $builder = $this->createFormBuilder($ride);
+
         $builder->add('schedule', TimeType::class, ['label' => 'Horaire']);
-        $builder->add($type, EntityType::class, [
-            'label' => $type === 'arrival' ? 'Arrivée':'Départ',
-            'class' => City::class,
-            'choice_label' => 'name',
-            'required' => false,
-            'attr' => [
-                'search-city' => true,
-                'style' => 'width: 100%',
-                'required' => true,
-            ],
-        ]);
+        $formModifier = function($form, $city) use ($type) {
+            $form->add($type, EntityType::class, [
+                'label' => $type === 'arrival' ? 'Arrivée':'Départ',
+                'class' => City::class,
+                'choice_label' => 'name',
+                'attr' => [
+                    'search-city' => true,
+                    'style' => 'width: 100%',
+                    'required' => true,
+                ],
+                'query_builder' => function (EntityRepository $er) use ($city) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.id = :id')
+                        ->setParameter('id',$city);
+                },
+            ]);
+        };
+        $formModifier($builder, $city);
+
         $builder->add('spaceAvailable', NumberType::class, ['label' => 'Place disponible']);
         $builder->add('observations', TextType::class, ['label' => 'Observations']);
         $builder->add('save', SubmitType::class, ['label' => 'Valider']);
 
 
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($formModifier, $type) {
+            $form = $event->getForm();
+            $data = $event->getData();
+            if (isset($data[$type])) {
+                $formModifier($form, $data[$type]);
+            }
+        });
+
         $form = $builder->getForm();
 
         $form->handleRequest($request);
 
-        /**
-         * Vérification qu'une ville est renseignée
-         * Car on est obligé de mettre à false le required de la ville
-         * Car l'ID de la ville est modifié côté front
-         * Et donc pas valide pour le form symfony côté back
-         */
-        if ($form[$type]->getData() && $form->isSubmitted() && $form->isValid()) {
+        if ($form->get($type)->getData() && $form->isSubmitted() && $form->isValid()) {
 
             $ride->setCompany($user->getCompany());
 
