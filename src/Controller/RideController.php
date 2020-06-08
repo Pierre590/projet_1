@@ -65,12 +65,15 @@ class RideController extends AbstractController
      */
     public function userID (Request $request, $id)
     {
+        //stockage type departure ou arrival pr le formulaire
         $type = $request->query->get('type', 'departure');
-         //stockage type departure ou arrival pr le formulaire//
+
         $user = $this->getUser();
 
         // Si edition d'un trajet
         if ($id) {
+            // Récupérer le trajet en bdd si il existe
+            // et qu'il appartient bien à l'user connecté
             $ride = $this->getDoctrine()
                 ->getRepository(Ride::class)
                 ->findOneBy([
@@ -95,6 +98,9 @@ class RideController extends AbstractController
 
         $builder->add('schedule', TimeType::class, ['label' => 'Horaire']);
 
+        // Permet de modifier le form au chargement de la page (GET)
+        // Et avant de poster le formulaire (PRE_SUBMIT)
+        // Sinon Symfony invalide les données car la ville est ajoutée dans le select côté front
         $formModifier = function($form, $cityId) use ($type) {
             $form->add($type, EntityType::class, [
                 'label' => $type === 'arrival' ? 'Arrivée':'Départ',
@@ -118,11 +124,11 @@ class RideController extends AbstractController
         $builder->add('observations', TextType::class, ['label' => 'Observations']);
         $builder->add('save', SubmitType::class, ['label' => 'Valider']);
 
-
-
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($formModifier, $type) {
             $form = $event->getForm();
             $data = $event->getData();
+            // Intégration du nouvel ID city dans le select
+            // Pour que Symfony valide le Formulaire
             if (isset($data[$type])) {
                 $formModifier($form, $data[$type]);
             }
@@ -132,11 +138,12 @@ class RideController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->get($type)->getData() && $form->isSubmitted() && $form->isValid()) {
-
+        // Vérification que la ville (departure ou arrival) n'est pas null
+        // Et que le reste du form est valide
+        if ($form->isSubmitted() && $form->get($type)->getData() && $form->isValid()) {
+            
             $ride->setCompany($user->getCompany());
 
-            //ride getcity si pas de ville = erreur
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ride);
             $entityManager->flush();
