@@ -12,15 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CompanyController extends AbstractController
 {
-    /**
-     * @Route("/company/admin", name="company_update")
-     */
-    public function updateCompany(Request $request)
-    {
-        $company = $this->getUser()->getCompany();
-
-        return $this->json(true);
-    }
 
     /**
      * @Route("/company", name="company")
@@ -90,7 +81,7 @@ class CompanyController extends AbstractController
     /**
      * @Route("/company/code", name="company_code")
      */
-    public function code(Request $request)
+    public function code()
     {
 
         $company = $this->getUser()->getCompany();

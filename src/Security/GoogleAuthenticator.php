@@ -58,7 +58,7 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
         ]);
 
         try {
-            $payload = $client->verifyIdToken($idToken);
+            $payload = $client->verifyIdToken($idToken); //payload = données, reponse envoyées par google
         } catch (\Exception $e) {
             return;
         }
