@@ -123,10 +123,16 @@ class RideController extends AbstractController
 
         $builder->add('spaceAvailable', NumberType::class, [
             'label' => 'Place disponible',
+            'attr' => [
+                'placeholder' => 'minimum 1 place.',
+            ],
             'constraints' => [new Assert\NotBlank()] //securite evite de ne pas valider le form sans valeur
         ]);
         $builder->add('observations', TextType::class, [
             'label' => 'Observations',
+            'attr' => [
+                'placeholder' => 'ras si champ vide.',
+            ],
             'constraints' => [new Assert\NotBlank()]
         ]);
         $builder->add('save', SubmitType::class, ['label' => 'Valider']);
@@ -160,6 +166,7 @@ class RideController extends AbstractController
         }
 
         return $this->render('ride/form.html.twig', [
+            'type' => $type,
             'form' => $form->createView(),
 
         ]);

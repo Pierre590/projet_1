@@ -13,8 +13,19 @@
         <div class="card-header text-center">Créer votre trajet</div>
         <div class="card-body">
 
-            {{ form(form) }}
-            
+            {{ form_start(form) }}
+                {{ form_row(form.schedule) }}
+                {{ form_row(form[type]) }}
+                {{ form_row(form.spaceAvailable) }}
+                    <small id="passwordHelpBlock" class="form-text text-muted mb-3">
+                        Renseignez ce champ avec un chiffre.
+                    </small>
+                {{ form_row(form.observations) }}
+                    <small id="passwordHelpBlock" class="form-text text-muted mb-3">
+                        Lieu de rendez-vous, retard ou ras si champ vide.
+                    </small>
+            {{ form_end(form) }}
+
         </div>
     </div>
 </div>
