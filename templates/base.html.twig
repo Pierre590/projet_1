@@ -26,7 +26,7 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path('panneau_company', {
                                 company: app.user.company.id
-                            }) }}">Panneaux <span class="sr-only">(current)</span></a>
+                            }) }}">Arrivées / Départs <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 {% endif %}
@@ -92,7 +92,7 @@
                     minimumInputLength: 2, //deux caracteres min pr fonctionner
                     language: {
                         inputTooShort () {
-                            return 'Entrer le code postal ou la ville 2 caracteres minimum'
+                            return 'Entrer le code postal ou la ville 2 caractères minimum'
                         }
                     },
                     ajax: {
