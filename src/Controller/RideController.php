@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 class RideController extends AbstractController
@@ -120,8 +121,14 @@ class RideController extends AbstractController
         };
         $formModifier($builder, $cityId);
 
-        $builder->add('spaceAvailable', NumberType::class, ['label' => 'Place disponible']);
-        $builder->add('observations', TextType::class, ['label' => 'Observations']);
+        $builder->add('spaceAvailable', NumberType::class, [
+            'label' => 'Place disponible',
+            'constraints' => [new Assert\NotBlank()] //securite evite de ne pas valider le form sans valeur
+        ]);
+        $builder->add('observations', TextType::class, [
+            'label' => 'Observations',
+            'constraints' => [new Assert\NotBlank()]
+        ]);
         $builder->add('save', SubmitType::class, ['label' => 'Valider']);
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($formModifier, $type) {
@@ -138,10 +145,11 @@ class RideController extends AbstractController
 
         $form->handleRequest($request);
 
+
         // Vérification que la ville (departure ou arrival) n'est pas null
         // Et que le reste du form est valide
         if ($form->isSubmitted() && $form->get($type)->getData() && $form->isValid()) {
-            
+
             $ride->setCompany($user->getCompany());
 
             $entityManager = $this->getDoctrine()->getManager();

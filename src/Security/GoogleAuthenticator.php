@@ -54,12 +54,12 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
         }
 
         $client = new \Google_Client([
-            'client_id' => $_ENV['GOOGLE_CLIENT_ID']
+            'client_id' => $_ENV['GOOGLE_CLIENT_ID']  //etape necessaire pr verifier id et token
         ]);
 
         try {
             $payload = $client->verifyIdToken($idToken); //payload = données, reponse envoyées par google
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {  //verifyIdToken depuis mon back vers api google pr verfier id google
             return;
         }
 
