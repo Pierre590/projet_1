@@ -6,6 +6,7 @@ use App\Entity\Company;
 use App\Entity\Adress;
 use App\Entity\City;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -73,9 +74,7 @@ class CompanyController extends AbstractController
                 return $this->redirectToRoute('company_code');
             }
         }
-        return $this->render('company/index.html.twig', [
-            'controller_name' => 'CompanyController',
-        ]);
+        return $this->render('company/index.html.twig');
     }
 
     /**

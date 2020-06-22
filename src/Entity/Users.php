@@ -325,8 +325,8 @@ class Users implements UserInterface
 
     public function hasCompanyRole(string $role): bool
     {
-        return in_array($role, $this->company_role);
+        return in_array($role, $this->getCompanyRole());
     }
 
-    
+
 }
