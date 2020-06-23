@@ -21,10 +21,10 @@
             </tr>
             {% for departure in departures %}
                 <tr class="table-secondary ">
-                    <th scope="row">{{ departure.schedule.format('H:i')}}</th>
-                    <td>{{ departure.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
-                    <td>{{ departure.user.firstName}}</td>
-                    <td> <a style="color:blue; "href="{{ path('ride_id_resa', {
+                    <th style="vertical-align: middle;"scope="row">{{ departure.schedule.format('H:i')}}</th>
+                    <td style="vertical-align: middle;">{{ departure.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td style="vertical-align: middle;">{{ departure.user.firstName}}</td>
+                    <td style="vertical-align: middle;"> <a style="color:blue; "href="{{ path('ride_id_resa', {
                             id: departure.id,
                             type: "departure"
                             }) }}">{{ departure.spaceAvailable - departure.resas | length }}
@@ -34,7 +34,7 @@
                               <label class="custom-control-label" for="customSwitch1">R</label>
                         </div>-->
                     </td>
-                    <td>{{ departure.observations }}</td>
+                    <td style="vertical-align: middle;">{{ departure.observations }}</td>
                 </tr>
             {% endfor %}
           </tbody>
