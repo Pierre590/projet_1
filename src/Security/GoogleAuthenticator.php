@@ -69,27 +69,17 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
             'googleId' => $payload['sub']
         ]);
 
-        // si l'utilisateur n'existe pas, on essai de le récupérer par l'email
+
         if (!$user) {
-            $user = $this->em
-            ->getRepository(Users::class)
-            ->findOneBy([
-                'email' => $payload['email']
-            ]);
-            if (!$user) {
-                $user = new Users;
-                $user
-                    ->setGoogleId($payload['sub'])
-                    ->setEmail($payload['email'])//recuperation, enregistrement des données Google en bdd
-                    ->setFirstname($payload['given_name'])
-                    ->setLastname($payload['family_name']);
-                $this->em->persist($user);
-                $this->em->flush();
-            }
+            $user = new Users;
+            $user
+                ->setGoogleId($payload['sub'])
+                ->setEmail($payload['email'])
+                ->setFirstname($payload['given_name'])
+                ->setLastname($payload['family_name']);
+            $this->em->persist($user);
+            $this->em->flush();
         }
-
-        $user->setGoogleId($payload['sub']);
-
 
         return $user;
     }

@@ -98,7 +98,6 @@ class CompanyController extends AbstractController
 
         return $this->render('company/code.html.twig', [
             'code' => $code,
-            'controller_name' => 'CompanyController',
         ]);
     }
 
