@@ -29,49 +29,54 @@ class CompanyController extends AbstractController
 
          if ($user && $request->isMethod('POST')) {
 
-            $cityId = $request->request->get('cityId');
-            $firstName = $request->request->get('firstname');
-            $adress = $request->request->get('adresse');
-            $email = $request->request->get('email');
-            $phone = $request->request->get('phone');
-            $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
+            $submittedToken = $request->request->get('token');
 
-            if (!$city) {
-                $error = "Veuiller sélectionner une ville";
-            } else if (!$firstName) {
-                $error = "Veuiller renseigner le nom de l'entreprise";
-            } else if (!$adress) {
-                $error = "Veuiller renseigner une adresse";
-            } else if (!$email) {
-                $error = "Veuiller renseigner un email valide";
-            } else if (!$phone) {
-                $error = "Veuiller renseigner un numéro de téléphone";
-            } else {
-                $entityManager = $this->getDoctrine()->getManager();
+            if ($this->isCsrfTokenValid('login_company', $submittedToken)) {
+
+                $cityId = (int) $request->request->get('cityId');
+                $firstName = (string) $request->request->get('firstname');
+                $adress = (string) $request->request->get('adresse');
+                $email = (string) $request->request->get('email');
+                $phone = (string) $request->request->get('phone');
+                $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
+
+                if (!$city) {
+                    $error = "Veuiller sélectionner une ville";
+                } else if (!$firstName) {
+                    $error = "Veuiller renseigner le nom de l'entreprise";
+                } else if (!$adress) {
+                    $error = "Veuiller renseigner une adresse";
+                } else if (!$email) {
+                    $error = "Veuiller renseigner un email valide";
+                } else if (!$phone) {
+                    $error = "Veuiller renseigner un numéro de téléphone";
+                } else {
+                    $entityManager = $this->getDoctrine()->getManager();
 
 
-                $adresse = new Adress();
+                    $adresse = new Adress();
 
-                $adresse->setAdress($adress);
-                $adresse->setCity($city);
+                    $adresse->setAdress($adress);
+                    $adresse->setCity($city);
 
-                $company = new Company();
+                    $company = new Company();
 
-                $company->setFirstname($firstName);
-                $company->setAdress($adresse);
-                $company->setEmail($email);
-                $company->setPhone($phone);
+                    $company->setFirstname($firstName);
+                    $company->setAdress($adresse);
+                    $company->setEmail($email);
+                    $company->setPhone($phone);
 
-                $entityManager->persist($company);
+                    $entityManager->persist($company);
 
-                $user->setCompany($company);
-                $user->addCompanyRole('ROLE_ADMIN');
+                    $user->setCompany($company);
+                    $user->addCompanyRole('ROLE_ADMIN');
 
-                $entityManager->persist($user);
+                    $entityManager->persist($user);
 
-                $entityManager->flush();
+                    $entityManager->flush();
 
-                return $this->redirectToRoute('company_code');
+                    return $this->redirectToRoute('company_code');
+                }
             }
         }
         return $this->render('company/index.html.twig');

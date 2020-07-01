@@ -113,8 +113,8 @@ class RideController extends AbstractController
                     'required' => true,
                 ],
                 'query_builder' => function (EntityRepository $er) use ($cityId) {
-                    return $er->createQueryBuilder('c')
-                        ->where('c.id = :id')
+                    return $er->createQueryBuilder('c')  //moyen pr afficher ce qu'il y a ds le select (liste des villes) ex affiche les villes 54
+                        ->where('c.id = :id') //au moment ou le form est posté enregistre en bdd la ville selectionné par le plugin JS
                         ->setParameter('id', $cityId);
                 },
             ]);
@@ -204,16 +204,19 @@ class RideController extends AbstractController
         $entityManager->persist($resa);
         $entityManager->flush();  //enregistrement en bdd
 
+        $company = $ride->getCompany();
+
         return $this->redirectToRoute('panneau_company', [
-            'company' => $this->getUser()->getCompany()->getId()
+            'company' => $company->getId()
         ]);
 
     }
 
     /**
      * @Route("/ride/remove/{id}", name="ride_remove")
+     *@IsGranted("ROLE_USER")
      */
-    public function remove($id)  //ajouter un isgranted//
+    public function remove($id) 
     {
         $repository = $this->getDoctrine()->getRepository(Ride::class);
         $ride = $repository->findOneBy([

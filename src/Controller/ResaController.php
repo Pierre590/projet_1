@@ -6,6 +6,7 @@ use App\Entity\Ride;
 use App\Entity\Users;
 use App\Entity\City;
 use App\Entity\Resa;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,7 @@ class ResaController extends AbstractController
 {
     /**
      * @Route("/resa", name="resa")
+     *@IsGranted("ROLE_USER")
      */
     public function index()
     {
@@ -43,8 +45,9 @@ class ResaController extends AbstractController
     }
     /**
      * @Route("/resa/remove/{id}", name="resa_remove")
+     *@IsGranted("ROLE_USER")
      */
-    public function remove($id)  //ajouter un isgranted//
+    public function remove($id)  
     {
         $user = $this->getUser();
 

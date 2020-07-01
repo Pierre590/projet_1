@@ -51,7 +51,7 @@ class CityController extends AbstractController
                         $cities[] = $city;//on ajoute la ville ds le tableu cities //
                     }
                 }
-            } else if (strlen($search) > 1) {   //sinon si $search (à 1 cractere alphabetique) est une ville//
+            } else if (strlen($search) > 1) {   //sinon si $search (à 1 cractere alphabetique) est une ville strlen = calcul dune chaine de caractere//
                 // on réassigne la variable cities avec le resultat des villes recuperees jusque ligne 44//
                 $cities = $this->getDoctrine()->getRepository(City::class) // on recupere le model city //
                     ->createQueryBuilder('s') //on créé un alias s pr la requete sql//

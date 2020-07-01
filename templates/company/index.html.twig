@@ -20,7 +20,7 @@
     </div>
     <div class="row justify-content-md-center">
         <div class="col-md-8">
-            {% if not app.user %} <!--si non connecté creation d'un compte Ent via google -->
+            {% if not app.user %}
                 <button login-google class="btn btn-primary">Inscription avec Google</button>
             {% else %}
                 <div class="card text-white bg-primary mb-3">
@@ -28,11 +28,11 @@
                         <form class="form" action="" method="post">
                             <div class="form-group">
                                 <label for="form1">Nom de l'entreprise :</label>
-                                <input type="text" name="firstname" class="form-control" id="test1" placeholder="Indiquer le nom de l'entreprise" required/>
+                                <input type="text" name="firstname" class="form-control"  placeholder="Indiquer le nom de l'entreprise" required/>
                             </div>
                             <div class="form-group">
                                 <label for="form2">Adresse postale :</label>
-                                <input type="text" name="adresse" class="form-control" id="test2" placeholder="Indiquer le numéro de la voie et la rue" required/>
+                                <input type="text" name="adresse" class="form-control"  placeholder="Indiquer le numéro de la voie et la rue" required/>
                                 <div>
                                     <select search-city class="search-city" name="cityId" style="width:100%;">
                                         <option>Sélectionner une ville</option>
@@ -41,13 +41,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="form3">Email :</label>
-                                <input type="text" name="email" class="form-control" id="test3" placeholder="Enter l'e-mail de l'entreprise" required/>
+                                <input type="text" name="email" class="form-control" placeholder="Enter l'e-mail de l'entreprise" required/>
                             </div>
                             <div class="form-group">
                                 <label for="form4">Téléphone : </label>
-                                <input type="number" name="phone" class="form-control" id="test4" placeholder="Indiquer le numéro de téléphone (facultatif)" required/>
+                                <input type="number" name="phone" class="form-control"  placeholder="Indiquer le numéro de téléphone (facultatif)" required/>
                             </div>
-                            <input type="hidden" name="token" value=""/>
+                            <input type="hidden" name="token" value="{{ csrf_token('login_company') }}"/>
                             <input class="btn btn-secondary" type="submit" name="submit" value="Valider"/>
                             <button type="reset" class="btn btn-primary" NAME="submit">Réinitialiser</button>
                         </form>

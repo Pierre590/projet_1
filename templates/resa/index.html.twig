@@ -61,13 +61,13 @@
             </tr>
             {% for arrival in arrivals %}
                 <tr class="table-secondary ">
-                    <th scope="row" style="vertical-align: middle;">{{ arrival.schedule.format('H:i')}}</th>
-                    <td style="vertical-align: middle;">{{ arrival.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
-                    <td style="vertical-align: middle;">{{ arrival.user.firstName}}</td>
-                    <td style="vertical-align: middle;">{{ arrival.spaceAvailable - arrival.resas | length }}</td>
-                    <td style="vertical-align: middle;">{{ arrival.observations }}</td>
+                    <th scope="row" style="vertical-align: middle;">{{ arrival.ride.schedule.format('H:i')}}</th>
+                    <td style="vertical-align: middle;">{{ arrival.ride.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
+                    <td style="vertical-align: middle;">{{ arrival.ride.user.firstName}}</td>
+                    <td style="vertical-align: middle;">{{ arrival.ride.spaceAvailable - arrival.ride.resas | length }}</td>
+                    <td style="vertical-align: middle;">{{ arrival.ride.observations }}</td>
                     <td style="vertical-align: middle;">
-                        <a style="color:blue;" href="{{ path('ride_remove', {
+                        <a style="color:blue;" href="{{ path('resa_remove', {
                             id: arrival.id
                             })}}">Supprimer ma </br>réservation
                         </a>

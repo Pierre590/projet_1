@@ -42,7 +42,7 @@ class HomeController extends AbstractController
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
-                    //renvoyer un sms de succés et redirect vers panneau gnrl
+
             }else {
                 //affciher un sms erreur code incorrect
                 $error = 'code_invalide';
