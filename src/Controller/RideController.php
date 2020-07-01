@@ -182,18 +182,22 @@ class RideController extends AbstractController
             ->getRepository(Ride::class)
             ->find($id);
 
+        if ($this->getUser() === $ride->getUser()) {
+            throw new \Exception('Vous ne pouvez pas réserver votre trajet');
+        }
 
-            if (count($ride->getResas()) === $ride->getSpaceAvailable()) {
-                throw new \Exception('plus de place disponible'); //securise le code qd 0 place
 
+        if (count($ride->getResas()) === $ride->getSpaceAvailable()) {
+            throw new \Exception('plus de place disponible'); //securise le code qd 0 place
+
+        }
+
+
+        foreach ($ride->getResas() as $resa) {
+            if ($resa->getUser() === $this->getUser() ) {
+                throw new \Exception ('user existe deja'); //securise sur un trajet deja resa
             }
-
-
-            foreach ($ride->getResas() as $resa) {
-                if ($resa->getUser() === $this->getUser() ) {
-                    throw new \Exception ('user existe deja'); //securise sur un trajet deja resa
-                }
-            }
+        }
 
         $resa = new Resa; //objet user:null :ride= nul
         $resa->setRide($ride);  //objet user:null :ride= chiffre de la resa
@@ -216,7 +220,7 @@ class RideController extends AbstractController
      * @Route("/ride/remove/{id}", name="ride_remove")
      *@IsGranted("ROLE_USER")
      */
-    public function remove($id) 
+    public function remove($id)
     {
         $repository = $this->getDoctrine()->getRepository(Ride::class);
         $ride = $repository->findOneBy([

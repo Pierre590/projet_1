@@ -24,11 +24,17 @@
                     <th style="vertical-align: middle;"scope="row">{{ departure.schedule.format('H:i')}}</th>
                     <td style="vertical-align: middle;">{{ departure.departure.name }}</td> <!-- acces à l'user puis table et colonne -->
                     <td style="vertical-align: middle;">{{ departure.user.firstName}}</td>
-                    <td style="vertical-align: middle;"> <a style="color:blue; "href="{{ path('ride_id_resa', {
-                            id: departure.id,
-                            type: "departure"
-                            }) }}">{{ departure.spaceAvailable - departure.resas | length }}
-                        </a>
+                    <td style="vertical-align: middle;">
+                        {% if app.user == departure.user %}
+                            {{ departure.spaceAvailable - departure.resas | length }}
+                        {% else %}
+                            <a style="color:blue; " href="{{ path('ride_id_resa', {
+                                id: departure.id,
+                                type: "departure"
+                            }) }}">
+                                {{ departure.spaceAvailable - departure.resas | length }}
+                            </a>
+                        {% endif %}
                     </td>
                     <td style="vertical-align: middle;">{{ departure.observations }}</td>
                 </tr>
@@ -57,11 +63,16 @@
                   <th scope="row">{{ arrival.schedule.format('H:i')}}</th>
                   <td>{{ arrival.arrival.name }}</td> <!-- acces à l'user puis table et colonne -->
                   <td>{{ arrival.user.firstName}}</td>
-                  <td><a style="color:blue;" href="{{ path('ride_id_resa', {
-                          id: arrival.id,
-                          type: "arrival"
-                          }) }}">{{ arrival.spaceAvailable - arrival.resas | length }}
-                      </a>
+                  <td>
+                      {% if app.user == arrival.user %}
+                          {{ arrival.spaceAvailable - arrival.resas | length }}
+                      {% else %}
+                          <a style="color:blue;" href="{{ path('ride_id_resa', {
+                              id: arrival.id,
+                              type: "arrival"
+                              }) }}">{{ arrival.spaceAvailable - arrival.resas | length }}
+                          </a>
+                        {% endif %}
                 </td>
                   <td>{{ arrival.observations }}</td>
                 </tr>
