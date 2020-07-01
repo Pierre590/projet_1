@@ -40,6 +40,8 @@ class CompanyController extends AbstractController
                 $phone = (string) $request->request->get('phone');
                 $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
 
+                $phone = str_replace(' ', '', $phone);
+
                 if (!$city) {
                     $error = "Veuiller sélectionner une ville";
                 } else if (!$firstName) {
@@ -48,8 +50,8 @@ class CompanyController extends AbstractController
                     $error = "Veuiller renseigner une adresse";
                 } else if (!$email) {
                     $error = "Veuiller renseigner un email valide";
-                } else if (!$phone) {
-                    $error = "Veuiller renseigner un numéro de téléphone";
+                } else if (!$phone OR !preg_match('/[0-9]{10}/', $phone)) {
+                    $error = "Le numéro de téléphone est incorrect";
                 } else {
                     $entityManager = $this->getDoctrine()->getManager();
 
@@ -79,7 +81,9 @@ class CompanyController extends AbstractController
                 }
             }
         }
-        return $this->render('company/index.html.twig');
+        return $this->render('company/index.html.twig', [
+            'error' => $error,
+        ]);
     }
 
     /**
