@@ -113,7 +113,7 @@ class RideController extends AbstractController
                     'required' => true,
                 ],
                 'query_builder' => function (EntityRepository $er) use ($cityId) {
-                    return $er->createQueryBuilder('c')  //moyen pr afficher ce qu'il y a ds le select (liste des villes) ex affiche les villes 54
+                    return $er->createQueryBuilder('c')  //moyen pr afficher ce qu'il y a ds le select (liste des villes) ex affiche les villes
                         ->where('c.id = :id') //au moment ou le form est posté enregistre en bdd la ville selectionné par le plugin JS
                         ->setParameter('id', $cityId);
                 },
@@ -126,7 +126,7 @@ class RideController extends AbstractController
             'attr' => [
                 'placeholder' => 'minimum 1 place.',
             ],
-            'constraints' => [new Assert\NotBlank()] //securite evite de ne pas valider le form sans valeur
+            'constraints' => [new Assert\NotBlank()] 
         ]);
         $builder->add('observations', TextType::class, [
             'label' => 'Observations',
@@ -181,6 +181,10 @@ class RideController extends AbstractController
         $ride = $this->getDoctrine()
             ->getRepository(Ride::class)
             ->find($id);
+
+        if (!$ride) {
+            throw new \Exception('Le trajet n\'existe pas');
+        }
 
         if ($this->getUser() === $ride->getUser()) {
             throw new \Exception('Vous ne pouvez pas réserver votre trajet');

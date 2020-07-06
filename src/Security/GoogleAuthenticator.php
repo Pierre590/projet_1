@@ -29,7 +29,7 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
      */
      public function supports(Request $request)
      {
-         return 'app_login_google' === $request->attributes->get('_route')
+         return 'app_login_google' === $request->attributes->get('_route')//verif si la requete passe par la methode support est bien la route pr mon log google
              && $request->isMethod('POST');
      }
 
@@ -39,7 +39,7 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);  //verfication sil ya bien un id token
         return [
             'id_token' => $data['id_token'],
         ];
@@ -47,7 +47,7 @@ class GoogleAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $idToken = $credentials['id_token'];
+        $idToken = $credentials['id_token'];//recupere idtoken du credential
 
         if (null === $idToken) {
             return;

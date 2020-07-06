@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="description:" content="site de micro co-voiturage pour les entreprises">
+        <meta name="description" content="site de micro co-voiturage pour les entreprises">
         <meta name="google-signin-client_id" content="699258154622-t9og9u5681snjbtjktobs02lmq4p19ds.apps.googleusercontent.com">
         <title>{% block title %}Bienvenue{% endblock %}</title>
         {% block stylesheets %}
@@ -91,12 +91,12 @@
                     </div>
                     <div class="col-md-3">
                         Contactez-nous : </br>
-                        <a href="mailto:carcoworker@gmail.com"><img src="https://img.icons8.com/ios-filled/50/000000/send-mass-email.png"/></a>
+                        <a href="mailto:carcoworker@gmail.com"><img src="https://img.icons8.com/ios-filled/50/000000/send-mass-email.png" alt="icone d'un e-mail"></a>
                     </div>
                     <div class="col-md-3">
-                        <a href="https://fr-fr.facebook.com/login/device-based/regular/login/?login_attempt=1&lwv=110"><img src="https://img.icons8.com/ios-filled/50/000000/facebook.png">
-                        <a href="https://twitter.com/login"><img src="https://img.icons8.com/ios-filled/50/000000/twitter.png"></a>
-                        <a href="https://www.instagram.com/accounts/login/?hl=fr"><img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png"></a>
+                        <a href="https://fr-fr.facebook.com/login/device-based/regular/login/?login_attempt=1&lwv=110"><img src="https://img.icons8.com/ios-filled/50/000000/facebook.png" alt ="icone de facebook">
+                        <a href="https://twitter.com/login"><img src="https://img.icons8.com/ios-filled/50/000000/twitter.png" alt="icone dde twitter"></a>
+                        <a href="https://www.instagram.com/accounts/login/?hl=fr"><img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png" alt="icone d'instagram"></a>
                     </div>
                 </div>
             </div>
@@ -109,14 +109,14 @@
             {{ encore_entry_script_tags('app') }}  <!--charger le js depuis webpack -->
             <script>
             $( document ).ready(function () {  // attendre que jquery soit pret
-                $('[search-city]').select2({ // charger le selecteur de ville
+                $('[search-city]').select2({ // charger le selecteur de ville plugin select2 d'un dev puis les parametres
                     minimumInputLength: 2, //deux caracteres min pr fonctionner
                     language: {
                         inputTooShort () {
                             return 'Entrer le code postal ou la ville 2 caractères minimum'
                         }
                     },
-                    ajax: {
+                    ajax: {//requete http sur la route
                         url: '{{ path('city_search')}}',//recupere les donnees json depuis le controller city : test avec http://localhost:8000/city/search?q=nan
                         dataType: 'json'
                     }

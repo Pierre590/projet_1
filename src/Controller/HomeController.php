@@ -26,7 +26,7 @@ class HomeController extends AbstractController
     public function codeEnt(Request $request)
     {
 
-        $code = (string) $request->request->get('codeEnt'); //string = peut eviter les failles de securités
+        $code = (string) $request->request->get('codeEnt'); 
 
         $error = null;
 

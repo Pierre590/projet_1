@@ -64,7 +64,7 @@ class CityController extends AbstractController
 
         $response = []; //on prepare une variable pr formater les resultats de type tableau //
 
-        foreach ($cities as $city) { //on liste les villes recuperees //
+        foreach ($cities as $city) { //on liste les villes recuperees //  $city instance de la classe city
             $response[] = [  // on ajoute la ville à la reponse//
                 'id' => $city->getId(),//on créé une clé id avec la valeur de l'id de la ville $city //
                 'text' => $city->getName(),//on créé une clé text avec la valeur du nom de la ville $city //
